@@ -3,14 +3,14 @@ CREATE TABLE `puesto_de_trabajo` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `genero` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UKh1v2uv0jpjuiwvw33pdh046gp` (`nombre`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 CREATE TABLE `usuario` (
@@ -30,7 +30,7 @@ CREATE TABLE `usuario` (
   KEY `FKggxfta56s22jhgrmbbc54945d` (`puesto_de_trabajo_id`),
   CONSTRAINT `FK3ww4fyvyctas314maygwlt62s` FOREIGN KEY (`genero_id`) REFERENCES `genero` (`id`),
   CONSTRAINT `FKggxfta56s22jhgrmbbc54945d` FOREIGN KEY (`puesto_de_trabajo_id`) REFERENCES `puesto_de_trabajo` (`id`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `direccion` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -41,4 +41,4 @@ CREATE TABLE `direccion` (
   PRIMARY KEY (`id`),
   KEY `FK73vv55f8i3n3b5me7kprxjr6o` (`usuario_id`),
   CONSTRAINT `FK73vv55f8i3n3b5me7kprxjr6o` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
