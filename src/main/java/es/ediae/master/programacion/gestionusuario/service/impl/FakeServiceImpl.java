@@ -1,4 +1,4 @@
-package es.ediae.master.programacion.gestionusuario.service.impl;
+/* package es.ediae.master.programacion.gestionusuario.service.impl;
 
 import java.util.List;
 
@@ -21,3 +21,4 @@ public class FakeServiceImpl implements IFakeService{
     }
 
 }
+ */

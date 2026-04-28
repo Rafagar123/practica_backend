@@ -1,4 +1,4 @@
-package es.ediae.master.programacion.gestionusuario.service;
+/* package es.ediae.master.programacion.gestionusuario.service;
 
 import java.util.List;
 
@@ -8,3 +8,4 @@ public interface IFakeService {
 
     public List<FakeEntity> obtenerAllFakeEntity();
 }
+ */
