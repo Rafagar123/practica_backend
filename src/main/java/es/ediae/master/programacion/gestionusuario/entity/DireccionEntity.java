@@ -35,4 +35,46 @@ public class DireccionEntity {
     public DireccionEntity() {
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNombreCalle() {
+        return nombreCalle;
+    }
+
+    public void setNombreCalle(String nombreCalle) {
+        this.nombreCalle = nombreCalle;
+    }
+
+    public Integer getNumeroCalle() {
+        return numeroCalle;
+    }
+
+    public void setNumeroCalle(Integer numeroCalle) {
+        this.numeroCalle = numeroCalle;
+    }
+
+    public UsuarioEntity getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioEntity usuario) {
+        this.usuario = usuario;
+    }
+
+    public Boolean getDireccionPrincipal() {
+        return direccionPrincipal;
+    }
+
+    public void setDireccionPrincipal(Boolean direccionPrincipal) {
+        this.direccionPrincipal = direccionPrincipal;
+    }
+
+    
+
 }
