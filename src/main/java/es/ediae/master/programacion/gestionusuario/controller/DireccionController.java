@@ -25,5 +25,9 @@ public class DireccionController {
                 .map(DireccionDTO :: fromModel)
                 .toList();
     }
-    
+
+    @GetMapping("Direccion/{id}")
+    public DireccionDTO buscarPorId(@PathVariable Integer id) {
+        return DireccionDTO.fromModel(direccionServiceImpl.direccionPorId(id));
+    }
 }

@@ -18,8 +18,14 @@ public class DireccionServiceImpl implements IDireccionService {
     @Override
     public List<DireccionModel> buscarPorUsuarioId(Integer usuarioId) {
         return direccionRepository.buscarPorUsuarioId(usuarioId).stream()
-                .map(DireccionModel :: fromEntity)
+                .map(DireccionModel::fromEntity)
                 .toList();
     }
 
+    @Override
+    public DireccionModel direccionPorId(Integer id) {
+        return direccionRepository.findById(id)
+                .map(DireccionModel::fromEntity)
+                .orElse(null);
+    }
 }
