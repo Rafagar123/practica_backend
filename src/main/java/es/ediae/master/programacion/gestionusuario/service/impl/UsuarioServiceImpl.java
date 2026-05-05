@@ -16,17 +16,27 @@ public class UsuarioServiceImpl implements IUsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public List<UsuarioModel> obtenerTodosUsuarios(){
+    public List<UsuarioModel> obtenerTodosUsuarios() {
         return usuarioRepository.findAll().stream()
                 .map(UsuarioModel::fromEntity)
                 .toList();
     }
 
-    @Override 
-    public UsuarioModel usuarioPorId(Integer id){
+    @Override
+    public UsuarioModel usuarioPorId(Integer id) {
         return usuarioRepository.findById(id)
                 .map(UsuarioModel::fromEntity)
                 .orElse(null);
+    }
+
+    @Override
+    public boolean eliminarUsuario(Integer id) {
+        if (usuarioRepository.existsById(id)) {
+            usuarioRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

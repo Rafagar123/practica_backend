@@ -1,7 +1,7 @@
 package es.ediae.master.programacion.gestionusuario.controller.DTO;
 
-import java.sql.Date;
 import java.sql.Time;
+import java.time.*;
 
 import es.ediae.master.programacion.gestionusuario.service.models.UsuarioModel;
 
@@ -13,7 +13,7 @@ public class UsuarioDTO {
 
     private String contrasena;
 
-    private Date fechaHoraCreacion;
+    private LocalDateTime fechaHoraCreacion;
 
     private GeneroDTO genero;
 
@@ -23,15 +23,15 @@ public class UsuarioDTO {
 
     private String segundoApellido;
 
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
-    private Time horaDesayuno;
+    private LocalTime horaDesayuno;
 
     private PuestoDeTrabajoDTO puestoDeTrabajo;
 
-    public UsuarioDTO(Integer id, String nickUsuario, String contrasena, Date fechaHoraCreacion,
+    public UsuarioDTO(Integer id, String nickUsuario, String contrasena, LocalDateTime fechaHoraCreacion,
             GeneroDTO genero, String nombre, String primerApellido, String segundoApellido,
-            Date fechaNacimiento, Time horaDesayuno, PuestoDeTrabajoDTO puestoDeTrabajo) {
+            LocalDate fechaNacimiento, LocalTime horaDesayuno, PuestoDeTrabajoDTO puestoDeTrabajo) {
         this.id = id;
         this.nickUsuario = nickUsuario;
         this.contrasena = contrasena;
@@ -72,19 +72,19 @@ public class UsuarioDTO {
         this.contrasena = contrasena;
     }
 
-    public Date getFechaHoraCreacion() {
+    public LocalDateTime getFechaHoraCreacion() {
         return fechaHoraCreacion;
     }
 
-    public void setFechaHoraCreacion(Date fechaHoraCreacion) {
+    public void setFechaHoraCreacion(LocalDateTime fechaHoraCreacion) {
         this.fechaHoraCreacion = fechaHoraCreacion;
     }
 
-    public GeneroDTO getGeneroDTO() {
+    public GeneroDTO getGenero() {
         return genero;
     }
 
-    public void setGeneroDTO(GeneroDTO genero) {
+    public void setGenero(GeneroDTO genero) {
         this.genero = genero;
     }
 
@@ -112,27 +112,27 @@ public class UsuarioDTO {
         this.segundoApellido = segundoApellido;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Time getHoraDesayuno() {
+    public LocalTime getHoraDesayuno() {
         return horaDesayuno;
     }
 
-    public void setHoraDesayuno(Time horaDesayuno) {
+    public void setHoraDesayuno(LocalTime horaDesayuno) {
         this.horaDesayuno = horaDesayuno;
     }
 
-    public PuestoDeTrabajoDTO getPuestoDeTrabajoDTO() {
+    public PuestoDeTrabajoDTO getPuestoDeTrabajo() {
         return puestoDeTrabajo;
     }
 
-    public void setPuestoDeTrabajoDTO(PuestoDeTrabajoDTO puestoDeTrabajo) {
+    public void setPuestoDeTrabajo(PuestoDeTrabajoDTO puestoDeTrabajo) {
         this.puestoDeTrabajo = puestoDeTrabajo;
     }
 

@@ -2,8 +2,8 @@ package es.ediae.master.programacion.gestionusuario.entity;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
 import java.sql.Time;
+import java.time.*;
 
 @Entity
 @Table(name = "usuario")
@@ -19,7 +19,7 @@ public class UsuarioEntity {
     private String contrasena;
 
     @Column(name = "fecha_hora_creacion", nullable = false)
-    private Date fechaHoraCreacion;
+    private LocalDateTime fechaHoraCreacion;
 
     @ManyToOne
     @JoinColumn(name = "genero_id", nullable = false)
@@ -35,10 +35,10 @@ public class UsuarioEntity {
     private String segundoApellido;
 
     @Column(name = "fecha_nacimiento", nullable = false)
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
     @Column(name = "hora_desayuno", nullable = true)
-    private Time horaDesayuno;
+    private LocalTime horaDesayuno;
 
     // Nullable es true porque un usuario puede no tener un puesto de trabajo
     // asignado
@@ -46,9 +46,9 @@ public class UsuarioEntity {
     @JoinColumn(name = "puesto_de_trabajo_id", nullable = true)
     private PuestoDeTrabajoEntity puestoDeTrabajo;
 
-    public UsuarioEntity(Integer id, String nickUsuario, String contrasena, Date fechaHoraCreacion,
+    public UsuarioEntity(Integer id, String nickUsuario, String contrasena, LocalDateTime fechaHoraCreacion,
             GeneroEntity genero, String nombre, String primerApellido, String segundoApellido,
-            Date fechaNacimiento, Time horaDesayuno, PuestoDeTrabajoEntity puestoDeTrabajo) {
+            LocalDate fechaNacimiento, LocalTime horaDesayuno, PuestoDeTrabajoEntity puestoDeTrabajo) {
         this.id = id;
         this.nickUsuario = nickUsuario;
         this.contrasena = contrasena;
@@ -89,11 +89,11 @@ public class UsuarioEntity {
         this.contrasena = contrasena;
     }
 
-    public Date getFechaHoraCreacion() {
+    public LocalDateTime getFechaHoraCreacion() {
         return fechaHoraCreacion;
     }
 
-    public void setFechaHoraCreacion(Date fechaHoraCreacion) {
+    public void setFechaHoraCreacion(LocalDateTime fechaHoraCreacion) {
         this.fechaHoraCreacion = fechaHoraCreacion;
     }
 
@@ -129,19 +129,19 @@ public class UsuarioEntity {
         this.segundoApellido = segundoApellido;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Time getHoraDesayuno() {
+    public LocalTime getHoraDesayuno() {
         return horaDesayuno;
     }
 
-    public void setHoraDesayuno(Time horaDesayuno) {
+    public void setHoraDesayuno(LocalTime horaDesayuno) {
         this.horaDesayuno = horaDesayuno;
     }
 

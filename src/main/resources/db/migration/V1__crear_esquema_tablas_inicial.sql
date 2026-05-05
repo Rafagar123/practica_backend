@@ -16,7 +16,7 @@ CREATE TABLE `genero` (
 CREATE TABLE `usuario` (
   `id` int NOT NULL AUTO_INCREMENT,
   `contrasena` varchar(255) NOT NULL,
-  `fecha_hora_creacion` date NOT NULL,
+  `fecha_hora_creacion` datetime NOT NULL,
   `fecha_nacimiento` date NOT NULL,
   `hora_desayuno` time(6) DEFAULT NULL,
   `nick_usuario` varchar(255) NOT NULL,

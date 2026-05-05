@@ -47,8 +47,9 @@ public class DireccionServiceImpl implements IDireccionService {
         if (direccionRepository.existsById(id)) {
             direccionRepository.deleteById(id);
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     // Deberia actualizar tambien el usuario? Y de ser asi, lo hago con un objeto
