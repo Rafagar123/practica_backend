@@ -6,7 +6,7 @@ import es.ediae.master.programacion.gestionusuario.service.models.DireccionModel
 
 public interface IDireccionService {
 
-    public List<DireccionModel> buscarPorUsuarioId(Integer usuarioId);
+    List<DireccionModel> buscarPorUsuarioId(Integer usuarioId);
     List<DireccionModel> obtenerTodasDirecciones();
     DireccionModel direccionPorId(Integer id);
     boolean eliminarDireccion(Integer id);

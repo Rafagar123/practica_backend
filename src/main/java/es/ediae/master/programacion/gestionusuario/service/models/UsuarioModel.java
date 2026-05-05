@@ -174,7 +174,7 @@ public class UsuarioModel {
                 null,
                 usuarioPostDTO.getNickUsuario(),
                 usuarioPostDTO.getContrasena(),
-                null,
+                usuarioPostDTO.getFechaHoraCreacion(),
                 GeneroModel.fromDTO(usuarioPostDTO.getGeneroDTO()),
                 usuarioPostDTO.getNombre(),
                 usuarioPostDTO.getPrimerApellido(),

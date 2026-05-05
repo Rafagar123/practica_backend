@@ -15,7 +15,7 @@ public class UsuarioDTO {
 
     private Date fechaHoraCreacion;
 
-    private GeneroDTO generoDTO;
+    private GeneroDTO genero;
 
     private String nombre;
 
@@ -27,22 +27,22 @@ public class UsuarioDTO {
 
     private Time horaDesayuno;
 
-    private PuestoDeTrabajoDTO puestoDeTrabajoDTO;
+    private PuestoDeTrabajoDTO puestoDeTrabajo;
 
     public UsuarioDTO(Integer id, String nickUsuario, String contrasena, Date fechaHoraCreacion,
-            GeneroDTO generoDTO, String nombre, String primerApellido, String segundoApellido,
-            Date fechaNacimiento, Time horaDesayuno, PuestoDeTrabajoDTO puestoDeTrabajoDTO) {
+            GeneroDTO genero, String nombre, String primerApellido, String segundoApellido,
+            Date fechaNacimiento, Time horaDesayuno, PuestoDeTrabajoDTO puestoDeTrabajo) {
         this.id = id;
         this.nickUsuario = nickUsuario;
         this.contrasena = contrasena;
         this.fechaHoraCreacion = fechaHoraCreacion;
-        this.generoDTO = generoDTO;
+        this.genero = genero;
         this.nombre = nombre;
         this.primerApellido = primerApellido;
         this.segundoApellido = segundoApellido;
         this.fechaNacimiento = fechaNacimiento;
         this.horaDesayuno = horaDesayuno;
-        this.puestoDeTrabajoDTO = puestoDeTrabajoDTO;
+        this.puestoDeTrabajo = puestoDeTrabajo;
     }
 
     public UsuarioDTO() {
@@ -81,11 +81,11 @@ public class UsuarioDTO {
     }
 
     public GeneroDTO getGeneroDTO() {
-        return generoDTO;
+        return genero;
     }
 
-    public void setGeneroDTO(GeneroDTO generoDTO) {
-        this.generoDTO = generoDTO;
+    public void setGeneroDTO(GeneroDTO genero) {
+        this.genero = genero;
     }
 
     public String getNombre() {
@@ -129,11 +129,11 @@ public class UsuarioDTO {
     }
 
     public PuestoDeTrabajoDTO getPuestoDeTrabajoDTO() {
-        return puestoDeTrabajoDTO;
+        return puestoDeTrabajo;
     }
 
-    public void setPuestoDeTrabajoDTO(PuestoDeTrabajoDTO puestoDeTrabajoDTO) {
-        this.puestoDeTrabajoDTO = puestoDeTrabajoDTO;
+    public void setPuestoDeTrabajoDTO(PuestoDeTrabajoDTO puestoDeTrabajo) {
+        this.puestoDeTrabajo = puestoDeTrabajo;
     }
 
     public static UsuarioDTO fromModel(UsuarioModel usuarioModel) {

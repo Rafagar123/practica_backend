@@ -1,5 +1,10 @@
 package es.ediae.master.programacion.gestionusuario.service;
 
-public interface IUsuarioService {
+import java.util.List;
 
+import es.ediae.master.programacion.gestionusuario.service.models.UsuarioModel;
+
+public interface IUsuarioService {
+    List<UsuarioModel> obtenerTodosUsuarios();
+    UsuarioModel usuarioPorId(Integer id);
 }
