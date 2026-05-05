@@ -11,7 +11,6 @@ import es.ediae.master.programacion.gestionusuario.repository.DireccionRepositor
 import es.ediae.master.programacion.gestionusuario.repository.UsuarioRepository;
 import es.ediae.master.programacion.gestionusuario.service.IDireccionService;
 import es.ediae.master.programacion.gestionusuario.service.models.DireccionModel;
-import es.ediae.master.programacion.gestionusuario.service.models.UsuarioModel;
 
 @Service
 public class DireccionServiceImpl implements IDireccionService {
