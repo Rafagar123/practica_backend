@@ -3,25 +3,25 @@ package es.ediae.master.programacion.gestionusuario.service.models;
 import es.ediae.master.programacion.gestionusuario.controller.DTO.DireccionDTO;
 import es.ediae.master.programacion.gestionusuario.controller.PostDTO.DireccionPostDTO;
 import es.ediae.master.programacion.gestionusuario.entity.DireccionEntity;
-import es.ediae.master.programacion.gestionusuario.entity.UsuarioEntity;
 
 public class DireccionModel {
+    
     private Integer id;
 
     private String nombreCalle;
 
     private Integer numeroCalle;
 
-    private UsuarioModel usuario;
+    private Integer usuarioId;
 
     private Boolean direccionPrincipal;
 
-    public DireccionModel(Integer id, String nombreCalle, Integer numeroCalle, UsuarioModel usuario,
+    public DireccionModel(Integer id, String nombreCalle, Integer numeroCalle, Integer usuarioId,
             Boolean direccionPrincipal) {
         this.id = id;
         this.nombreCalle = nombreCalle;
         this.numeroCalle = numeroCalle;
-        this.usuario = usuario;
+        this.usuarioId = usuarioId;
         this.direccionPrincipal = direccionPrincipal;
     }
 
@@ -52,12 +52,12 @@ public class DireccionModel {
         this.numeroCalle = numeroCalle;
     }
 
-    public UsuarioModel getUsuario() {
-        return usuario;
+    public Integer getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setUsuario(UsuarioModel usuario) {
-        this.usuario = usuario;
+    public void setUsuarioId(Integer usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
     public Boolean getDireccionPrincipal() {
@@ -73,7 +73,7 @@ public class DireccionModel {
                 direccionEntity.getId(),
                 direccionEntity.getNombreCalle(),
                 direccionEntity.getNumeroCalle(),
-                UsuarioModel.fromEntity(direccionEntity.getUsuario()),
+                direccionEntity.getUsuario().getId(),
                 direccionEntity.getDireccionPrincipal());
     }
 
@@ -82,7 +82,7 @@ public class DireccionModel {
                 direccionDTO.getId(),
                 direccionDTO.getNombreCalle(),
                 direccionDTO.getNumeroCalle(),
-               	UsuarioModel.fromDTO(direccionDTO.getUsuario()),
+               	direccionDTO.getUsuarioId(),
                 direccionDTO.getDireccionPrincipal());
     }
 
@@ -91,7 +91,7 @@ public class DireccionModel {
                 null,
                 direccionPostDTO.getNombreCalle(),
                 direccionPostDTO.getNumeroCalle(),
-                UsuarioModel.fromDTO(direccionPostDTO.getUsuario()),
+                direccionPostDTO.getUsuarioId(),
                 direccionPostDTO.getDireccionPrincipal());
     }
 

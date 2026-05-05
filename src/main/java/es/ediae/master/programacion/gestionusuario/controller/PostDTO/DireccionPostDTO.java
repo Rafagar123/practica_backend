@@ -1,6 +1,5 @@
 package es.ediae.master.programacion.gestionusuario.controller.PostDTO;
 
-import es.ediae.master.programacion.gestionusuario.controller.DTO.UsuarioDTO;
 
 public class DireccionPostDTO {
 
@@ -8,15 +7,15 @@ public class DireccionPostDTO {
 
     private Integer numeroCalle;
 
-    private UsuarioDTO usuario;
+    private Integer usuarioId;
 
     private Boolean direccionPrincipal;
 
-    public DireccionPostDTO(String nombreCalle, Integer numeroCalle, UsuarioDTO usuario,
+    public DireccionPostDTO(String nombreCalle, Integer numeroCalle, Integer usuarioId,
             Boolean direccionPrincipal) {
         this.nombreCalle = nombreCalle;
         this.numeroCalle = numeroCalle;
-        this.usuario = usuario;
+        this.usuarioId = usuarioId;
         this.direccionPrincipal = direccionPrincipal;
     }
 
@@ -39,12 +38,12 @@ public class DireccionPostDTO {
         this.numeroCalle = numeroCalle;
     }
 
-    public UsuarioDTO getUsuario() {
-        return usuario;
+    public Integer getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setUsuario(UsuarioDTO usuario) {
-        this.usuario = usuario;
+    public void setUsuarioId(Integer usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
     public Boolean getDireccionPrincipal() {

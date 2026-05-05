@@ -183,4 +183,5 @@ public class UsuarioModel {
                 usuarioPostDTO.getHoraDesayuno(),
                 PuestoDeTrabajoModel.fromDTO(usuarioPostDTO.getPuestoDeTrabajoDTO()));
     }
+
 }
