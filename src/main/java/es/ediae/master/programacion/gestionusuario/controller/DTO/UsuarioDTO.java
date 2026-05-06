@@ -1,6 +1,5 @@
 package es.ediae.master.programacion.gestionusuario.controller.DTO;
 
-import java.sql.Time;
 import java.time.*;
 
 import es.ediae.master.programacion.gestionusuario.service.models.UsuarioModel;
