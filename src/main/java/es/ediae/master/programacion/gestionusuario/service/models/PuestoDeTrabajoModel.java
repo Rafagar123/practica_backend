@@ -46,4 +46,10 @@ public class PuestoDeTrabajoModel {
         return new PuestoDeTrabajoModel(null, postDTO.getNombre());
     }
 
+    public static PuestoDeTrabajoEntity toEntity(PuestoDeTrabajoModel puestoDeTrabajoModel) {
+        return new PuestoDeTrabajoEntity(
+            puestoDeTrabajoModel.getId(),
+            puestoDeTrabajoModel.getNombre());
+    }
+
 }

@@ -2,7 +2,6 @@ package es.ediae.master.programacion.gestionusuario.entity;
 
 import jakarta.persistence.*;
 
-import java.sql.Time;
 import java.time.*;
 
 @Entity

@@ -50,4 +50,10 @@ public class GeneroModel {
                 null,
                 generoPostDTO.getNombre());
     }
+
+    public static GeneroEntity toEntity(GeneroModel generoModel) {
+        return new GeneroEntity(
+                generoModel.getId(),
+                generoModel.getNombre());
+    }
 }

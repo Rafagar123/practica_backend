@@ -11,9 +11,8 @@ public interface IUsuarioService {
 
     boolean eliminarUsuario(Integer id);
 
-    /*
     UsuarioModel actualizarUsuario(Integer id, UsuarioModel usuario);
 
     UsuarioModel crearUsuario(UsuarioModel usuario);
-     */
+    
 }

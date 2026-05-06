@@ -1,6 +1,5 @@
 package es.ediae.master.programacion.gestionusuario.controller.PostDTO;
 
-import java.sql.Time;
 import java.time.*;
 
 import es.ediae.master.programacion.gestionusuario.controller.DTO.GeneroDTO;
@@ -11,8 +10,6 @@ public class UsuarioPostDTO {
     private String nickUsuario;
 
     private String contrasena;
-
-    private LocalDateTime fechaHoraCreacion;
 
     private GeneroDTO genero;
 
@@ -28,12 +25,11 @@ public class UsuarioPostDTO {
 
     private PuestoDeTrabajoDTO puestoDeTrabajo;
 
-    public UsuarioPostDTO(String nickUsuario, String contrasena, LocalDateTime fechaHoraCreacion,
+    public UsuarioPostDTO(String nickUsuario, String contrasena,
             GeneroDTO genero, String nombre, String primerApellido, String segundoApellido,
             LocalDate fechaNacimiento, LocalTime horaDesayuno, PuestoDeTrabajoDTO puestoDeTrabajo) {
         this.nickUsuario = nickUsuario;
         this.contrasena = contrasena;
-        this.fechaHoraCreacion = fechaHoraCreacion;
         this.genero = genero;
         this.nombre = nombre;
         this.primerApellido = primerApellido;
@@ -60,14 +56,6 @@ public class UsuarioPostDTO {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
-    }
-
-    public LocalDateTime getFechaHoraCreacion() {
-        return fechaHoraCreacion;
-    }
-
-    public void setFechaHoraCreacion(LocalDateTime fechaHoraCreacion) {
-        this.fechaHoraCreacion = fechaHoraCreacion;
     }
 
     public GeneroDTO getGenero() {
