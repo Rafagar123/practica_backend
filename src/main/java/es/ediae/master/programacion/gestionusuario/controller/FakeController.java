@@ -1,4 +1,4 @@
-package es.ediae.master.programacion.gestionusuario.controller;
+/* package es.ediae.master.programacion.gestionusuario.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,3 +31,4 @@ public class FakeController {
     
 
 }
+ */
