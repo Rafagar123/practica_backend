@@ -56,7 +56,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
                     existingUsuario.setSegundoApellido(usuario.getSegundoApellido());
                     existingUsuario.setFechaNacimiento(usuario.getFechaNacimiento());
                     existingUsuario.setHoraDesayuno(usuario.getHoraDesayuno());
-                    existingUsuario.setPuestoDeTrabajo(PuestoDeTrabajoModel.toEntity(usuario.getPuestoDeTrabajoModel()));
+                    existingUsuario
+                            .setPuestoDeTrabajo(PuestoDeTrabajoModel.toEntity(usuario.getPuestoDeTrabajoModel()));
+                    existingUsuario.setEsAdmin(usuario.getEsAdmin());
                     return UsuarioModel.fromEntity(usuarioRepository.save(existingUsuario));
                 })
                 .orElse(null);
@@ -77,6 +79,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         usuarioEntity.setFechaNacimiento(usuarioModel.getFechaNacimiento());
         usuarioEntity.setHoraDesayuno(usuarioModel.getHoraDesayuno());
         usuarioEntity.setPuestoDeTrabajo(PuestoDeTrabajoModel.toEntity(usuarioModel.getPuestoDeTrabajoModel()));
+        usuarioEntity.setEsAdmin(usuarioModel.getEsAdmin());
         return UsuarioModel.fromEntity(usuarioRepository.save(usuarioEntity));
     }
 

@@ -45,9 +45,12 @@ public class UsuarioEntity {
     @JoinColumn(name = "puesto_de_trabajo_id", nullable = true)
     private PuestoDeTrabajoEntity puestoDeTrabajo;
 
+    @Column(name = "es_admin", nullable = false)
+    private Boolean esAdmin;
+
     public UsuarioEntity(Integer id, String nickUsuario, String contrasena, LocalDateTime fechaHoraCreacion,
             GeneroEntity genero, String nombre, String primerApellido, String segundoApellido,
-            LocalDate fechaNacimiento, LocalTime horaDesayuno, PuestoDeTrabajoEntity puestoDeTrabajo) {
+            LocalDate fechaNacimiento, LocalTime horaDesayuno, PuestoDeTrabajoEntity puestoDeTrabajo, Boolean esAdmin) {
         this.id = id;
         this.nickUsuario = nickUsuario;
         this.contrasena = contrasena;
@@ -59,6 +62,7 @@ public class UsuarioEntity {
         this.fechaNacimiento = fechaNacimiento;
         this.horaDesayuno = horaDesayuno;
         this.puestoDeTrabajo = puestoDeTrabajo;
+        this.esAdmin = esAdmin;
     }
 
     public UsuarioEntity() {
@@ -150,6 +154,14 @@ public class UsuarioEntity {
 
     public void setPuestoDeTrabajo(PuestoDeTrabajoEntity puestoDeTrabajo) {
         this.puestoDeTrabajo = puestoDeTrabajo;
+    }
+
+    public Boolean getEsAdmin() {
+        return esAdmin;
+    }
+
+    public void setEsAdmin(Boolean esAdmin) {
+        this.esAdmin = esAdmin;
     }
 
 }

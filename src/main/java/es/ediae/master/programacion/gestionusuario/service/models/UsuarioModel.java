@@ -30,9 +30,12 @@ public class UsuarioModel {
 
     private PuestoDeTrabajoModel puestoDeTrabajoModel;
 
+    private Boolean esAdmin;
+
     public UsuarioModel(Integer id, String nickUsuario, String contrasena, LocalDateTime fechaHoraCreacion,
-            GeneroModel generoModel, String nombre, String primerApellido, String segundoApellido, LocalDate fechaNacimiento,
-            LocalTime horaDesayuno, PuestoDeTrabajoModel puestoDeTrabajoModel) {
+            GeneroModel generoModel, String nombre, String primerApellido, String segundoApellido,
+            LocalDate fechaNacimiento,
+            LocalTime horaDesayuno, PuestoDeTrabajoModel puestoDeTrabajoModel, Boolean esAdmin) {
         this.id = id;
         this.nickUsuario = nickUsuario;
         this.contrasena = contrasena;
@@ -44,6 +47,7 @@ public class UsuarioModel {
         this.fechaNacimiento = fechaNacimiento;
         this.horaDesayuno = horaDesayuno;
         this.puestoDeTrabajoModel = puestoDeTrabajoModel;
+        this.esAdmin = esAdmin;
     }
 
     public UsuarioModel() {
@@ -137,6 +141,14 @@ public class UsuarioModel {
         this.puestoDeTrabajoModel = puestoDeTrabajoModel;
     }
 
+    public Boolean getEsAdmin() {
+        return esAdmin;
+    }
+
+    public void setEsAdmin(Boolean esAdmin) {
+        this.esAdmin = esAdmin;
+    }
+
     public static UsuarioModel fromEntity(UsuarioEntity usuarioEntity) {
         return new UsuarioModel(
                 usuarioEntity.getId(),
@@ -149,7 +161,8 @@ public class UsuarioModel {
                 usuarioEntity.getSegundoApellido(),
                 usuarioEntity.getFechaNacimiento(),
                 usuarioEntity.getHoraDesayuno(),
-                PuestoDeTrabajoModel.fromEntity(usuarioEntity.getPuestoDeTrabajo()));
+                PuestoDeTrabajoModel.fromEntity(usuarioEntity.getPuestoDeTrabajo()),
+                usuarioEntity.getEsAdmin());
 
     }
 
@@ -165,7 +178,8 @@ public class UsuarioModel {
                 usuarioDTO.getSegundoApellido(),
                 usuarioDTO.getFechaNacimiento(),
                 usuarioDTO.getHoraDesayuno(),
-                PuestoDeTrabajoModel.fromDTO(usuarioDTO.getPuestoDeTrabajo()));
+                PuestoDeTrabajoModel.fromDTO(usuarioDTO.getPuestoDeTrabajo()),
+                usuarioDTO.getEsAdmin());
     }
 
     public static UsuarioModel fromPostDTO(UsuarioPostDTO usuarioPostDTO) {
@@ -180,7 +194,8 @@ public class UsuarioModel {
                 usuarioPostDTO.getSegundoApellido(),
                 usuarioPostDTO.getFechaNacimiento(),
                 usuarioPostDTO.getHoraDesayuno(),
-                PuestoDeTrabajoModel.fromDTO(usuarioPostDTO.getPuestoDeTrabajo()));
+                PuestoDeTrabajoModel.fromDTO(usuarioPostDTO.getPuestoDeTrabajo()),
+                usuarioPostDTO.getEsAdmin());
     }
 
 }
