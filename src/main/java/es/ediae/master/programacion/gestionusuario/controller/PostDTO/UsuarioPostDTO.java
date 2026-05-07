@@ -25,9 +25,11 @@ public class UsuarioPostDTO {
 
     private PuestoDeTrabajoDTO puestoDeTrabajo;
 
+    private Boolean esAdmin;
+
     public UsuarioPostDTO(String nickUsuario, String contrasena,
             GeneroDTO genero, String nombre, String primerApellido, String segundoApellido,
-            LocalDate fechaNacimiento, LocalTime horaDesayuno, PuestoDeTrabajoDTO puestoDeTrabajo) {
+            LocalDate fechaNacimiento, LocalTime horaDesayuno, PuestoDeTrabajoDTO puestoDeTrabajo, Boolean esAdmin) {
         this.nickUsuario = nickUsuario;
         this.contrasena = contrasena;
         this.genero = genero;
@@ -37,6 +39,7 @@ public class UsuarioPostDTO {
         this.fechaNacimiento = fechaNacimiento;
         this.horaDesayuno = horaDesayuno;
         this.puestoDeTrabajo = puestoDeTrabajo;
+        this.esAdmin = esAdmin;
     }
 
     public UsuarioPostDTO() {
@@ -112,6 +115,14 @@ public class UsuarioPostDTO {
 
     public void setPuestoDeTrabajo(PuestoDeTrabajoDTO puestoDeTrabajo) {
         this.puestoDeTrabajo = puestoDeTrabajo;
+    }
+
+    public Boolean getEsAdmin() {
+        return esAdmin;
+    }
+
+    public void setEsAdmin(Boolean esAdmin) {
+        this.esAdmin = esAdmin;
     }
 
 }

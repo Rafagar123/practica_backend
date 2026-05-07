@@ -1,0 +1,1 @@
+ALTER TABLE `usuario` ADD COLUMN `es_admin` BIT(1) NOT NULL DEFAULT b'0';

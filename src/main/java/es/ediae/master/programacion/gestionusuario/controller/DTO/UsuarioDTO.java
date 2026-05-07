@@ -28,9 +28,11 @@ public class UsuarioDTO {
 
     private PuestoDeTrabajoDTO puestoDeTrabajo;
 
+    private Boolean esAdmin;
+
     public UsuarioDTO(Integer id, String nickUsuario, String contrasena, LocalDateTime fechaHoraCreacion,
             GeneroDTO genero, String nombre, String primerApellido, String segundoApellido,
-            LocalDate fechaNacimiento, LocalTime horaDesayuno, PuestoDeTrabajoDTO puestoDeTrabajo) {
+            LocalDate fechaNacimiento, LocalTime horaDesayuno, PuestoDeTrabajoDTO puestoDeTrabajo, Boolean esAdmin) {
         this.id = id;
         this.nickUsuario = nickUsuario;
         this.contrasena = contrasena;
@@ -42,6 +44,7 @@ public class UsuarioDTO {
         this.fechaNacimiento = fechaNacimiento;
         this.horaDesayuno = horaDesayuno;
         this.puestoDeTrabajo = puestoDeTrabajo;
+        this.esAdmin = esAdmin;
     }
 
     public UsuarioDTO() {
@@ -135,6 +138,14 @@ public class UsuarioDTO {
         this.puestoDeTrabajo = puestoDeTrabajo;
     }
 
+    public Boolean getEsAdmin() {
+        return esAdmin;
+    }
+
+    public void setEsAdmin(Boolean esAdmin) {
+        this.esAdmin = esAdmin;
+    }
+
     public static UsuarioDTO fromModel(UsuarioModel usuarioModel) {
         return new UsuarioDTO(
                 usuarioModel.getId(),
@@ -147,6 +158,7 @@ public class UsuarioDTO {
                 usuarioModel.getSegundoApellido(),
                 usuarioModel.getFechaNacimiento(),
                 usuarioModel.getHoraDesayuno(),
-                PuestoDeTrabajoDTO.fromModel(usuarioModel.getPuestoDeTrabajoModel()));
+                PuestoDeTrabajoDTO.fromModel(usuarioModel.getPuestoDeTrabajoModel()),
+                usuarioModel.getEsAdmin());
     }
 }
