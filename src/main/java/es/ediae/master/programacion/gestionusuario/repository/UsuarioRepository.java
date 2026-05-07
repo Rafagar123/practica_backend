@@ -9,8 +9,7 @@ import es.ediae.master.programacion.gestionusuario.entity.*;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Integer> {
-    
-    UsuarioEntity findByNickUsuario (String nickUsuario);
-    boolean existsByNickUsuario (String nickUsuario);
+
+    UsuarioEntity findByNickUsuario(String nickUsuario);
 
 }

@@ -49,7 +49,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         UsuarioEntity usuarioAnterior = usuarioRepository.findById(id).orElse(null);
         UsuarioEntity usuarioMismoNick = usuarioRepository.findByNickUsuario(usuario.getNickUsuario());
 
-        if (!usuarioRepository.existsByNickUsuario(usuario.getNickUsuario()) || usuarioMismoNick.getId() == id) {
+        if (usuarioMismoNick == null || usuarioMismoNick.getId() == id) {
             usuarioAnterior.setNickUsuario(usuario.getNickUsuario());
             usuarioAnterior.setContrasena(usuario.getContrasena());
             usuarioAnterior.setFechaNacimiento(usuario.getFechaNacimiento());
@@ -99,7 +99,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         UsuarioEntity usuarioEntity = new UsuarioEntity();
         LocalDateTime fechaHoraCreacion = LocalDateTime.now();
 
-        if (!usuarioRepository.existsByNickUsuario(usuarioModel.getNickUsuario())) {
+        if (usuarioRepository.findByNickUsuario(usuarioModel.getNickUsuario()) == null) {
             usuarioEntity.setNickUsuario(usuarioModel.getNickUsuario());
             usuarioEntity.setContrasena(usuarioModel.getContrasena());
             usuarioEntity.setFechaHoraCreacion(fechaHoraCreacion);
