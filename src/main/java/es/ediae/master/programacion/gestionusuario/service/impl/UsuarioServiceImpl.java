@@ -45,24 +45,54 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     public UsuarioModel actualizarUsuario(Integer id, UsuarioModel usuario) {
-        return usuarioRepository.findById(id)
-                .map(existingUsuario -> {
-                    existingUsuario.setNickUsuario(usuario.getNickUsuario());
-                    existingUsuario.setContrasena(usuario.getContrasena());
-                    existingUsuario.setFechaNacimiento(usuario.getFechaNacimiento());
-                    existingUsuario.setGenero(GeneroModel.toEntity(usuario.getGeneroModel()));
-                    existingUsuario.setNombre(usuario.getNombre());
-                    existingUsuario.setPrimerApellido(usuario.getPrimerApellido());
-                    existingUsuario.setSegundoApellido(usuario.getSegundoApellido());
-                    existingUsuario.setFechaNacimiento(usuario.getFechaNacimiento());
-                    existingUsuario.setHoraDesayuno(usuario.getHoraDesayuno());
-                    existingUsuario
-                            .setPuestoDeTrabajo(PuestoDeTrabajoModel.toEntity(usuario.getPuestoDeTrabajoModel()));
-                    existingUsuario.setEsAdmin(usuario.getEsAdmin());
-                    return UsuarioModel.fromEntity(usuarioRepository.save(existingUsuario));
-                })
-                .orElse(null);
+
+        UsuarioEntity usuarioAnterior = usuarioRepository.findById(id).orElse(null);
+        List<UsuarioEntity> usuariosMismoNick = usuarioRepository.findByNickUsuario(usuario.getNickUsuario());
+
+        if ((usuariosMismoNick.size() == 1 && usuariosMismoNick.get(0).getId() == id)
+                || usuariosMismoNick.size() == 0) {
+            usuarioAnterior.setNickUsuario(usuario.getNickUsuario());
+            usuarioAnterior.setContrasena(usuario.getContrasena());
+            usuarioAnterior.setFechaNacimiento(usuario.getFechaNacimiento());
+            usuarioAnterior.setGenero(GeneroModel.toEntity(usuario.getGeneroModel()));
+            usuarioAnterior.setNombre(usuario.getNombre());
+            usuarioAnterior.setPrimerApellido(usuario.getPrimerApellido());
+            usuarioAnterior.setSegundoApellido(usuario.getSegundoApellido());
+            usuarioAnterior.setFechaNacimiento(usuario.getFechaNacimiento());
+            usuarioAnterior.setHoraDesayuno(usuario.getHoraDesayuno());
+            usuarioAnterior.setPuestoDeTrabajo(PuestoDeTrabajoModel.toEntity(usuario.getPuestoDeTrabajoModel()));
+            usuarioAnterior.setEsAdmin(usuario.getEsAdmin());
+
+            return UsuarioModel.fromEntity(usuarioRepository.save(usuarioAnterior));
+        } else {
+            return null;
+        }
     }
+
+    /* Método actualizarUsuario sin control sobre nickUsuario
+     * 
+     * @Override
+     * public UsuarioModel actualizarUsuario(Integer id, UsuarioModel usuario) {
+     * return usuarioRepository.findById(id)
+     * .map(existingUsuario -> {
+     * existingUsuario.setNickUsuario(usuario.getNickUsuario());
+     * existingUsuario.setContrasena(usuario.getContrasena());
+     * existingUsuario.setFechaNacimiento(usuario.getFechaNacimiento());
+     * existingUsuario.setGenero(GeneroModel.toEntity(usuario.getGeneroModel()));
+     * existingUsuario.setNombre(usuario.getNombre());
+     * existingUsuario.setPrimerApellido(usuario.getPrimerApellido());
+     * existingUsuario.setSegundoApellido(usuario.getSegundoApellido());
+     * existingUsuario.setFechaNacimiento(usuario.getFechaNacimiento());
+     * existingUsuario.setHoraDesayuno(usuario.getHoraDesayuno());
+     * existingUsuario
+     * .setPuestoDeTrabajo(PuestoDeTrabajoModel.toEntity(usuario.
+     * getPuestoDeTrabajoModel()));
+     * existingUsuario.setEsAdmin(usuario.getEsAdmin());
+     * return UsuarioModel.fromEntity(usuarioRepository.save(existingUsuario));
+     * })
+     * .orElse(null);
+     * }
+     */
 
     @Override
     public UsuarioModel crearUsuario(UsuarioModel usuarioModel) {
