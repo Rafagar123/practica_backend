@@ -49,7 +49,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         UsuarioEntity usuarioAnterior = usuarioRepository.findById(id).orElse(null);
         UsuarioEntity usuarioMismoNick = usuarioRepository.findByNickUsuario(usuario.getNickUsuario());
 
-        if (usuarioMismoNick == null || usuarioMismoNick.getId() == id) {
+        if (usuarioMismoNick == null || usuarioMismoNick.getId().equals(id)) {
             usuarioAnterior.setNickUsuario(usuario.getNickUsuario());
             usuarioAnterior.setContrasena(usuario.getContrasena());
             usuarioAnterior.setFechaNacimiento(usuario.getFechaNacimiento());
