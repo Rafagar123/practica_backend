@@ -47,10 +47,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public UsuarioModel actualizarUsuario(Integer id, UsuarioModel usuario) {
 
         UsuarioEntity usuarioAnterior = usuarioRepository.findById(id).orElse(null);
-        List<UsuarioEntity> usuariosMismoNick = usuarioRepository.findByNickUsuario(usuario.getNickUsuario());
+        UsuarioEntity usuarioMismoNick = usuarioRepository.findByNickUsuario(usuario.getNickUsuario());
 
-        if ((usuariosMismoNick.size() == 1 && usuariosMismoNick.get(0).getId() == id)
-                || usuariosMismoNick.size() == 0) {
+        if (!usuarioRepository.existsByNickUsuario(usuario.getNickUsuario()) || usuarioMismoNick.getId() == id) {
             usuarioAnterior.setNickUsuario(usuario.getNickUsuario());
             usuarioAnterior.setContrasena(usuario.getContrasena());
             usuarioAnterior.setFechaNacimiento(usuario.getFechaNacimiento());
@@ -69,7 +68,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
-    /* Método actualizarUsuario sin control sobre nickUsuario
+    /*
+     * Método actualizarUsuario sin control sobre nickUsuario
      * 
      * @Override
      * public UsuarioModel actualizarUsuario(Integer id, UsuarioModel usuario) {
@@ -99,18 +99,48 @@ public class UsuarioServiceImpl implements IUsuarioService {
         UsuarioEntity usuarioEntity = new UsuarioEntity();
         LocalDateTime fechaHoraCreacion = LocalDateTime.now();
 
-        usuarioEntity.setNickUsuario(usuarioModel.getNickUsuario());
-        usuarioEntity.setContrasena(usuarioModel.getContrasena());
-        usuarioEntity.setFechaHoraCreacion(fechaHoraCreacion);
-        usuarioEntity.setGenero(GeneroModel.toEntity(usuarioModel.getGeneroModel()));
-        usuarioEntity.setNombre(usuarioModel.getNombre());
-        usuarioEntity.setPrimerApellido(usuarioModel.getPrimerApellido());
-        usuarioEntity.setSegundoApellido(usuarioModel.getSegundoApellido());
-        usuarioEntity.setFechaNacimiento(usuarioModel.getFechaNacimiento());
-        usuarioEntity.setHoraDesayuno(usuarioModel.getHoraDesayuno());
-        usuarioEntity.setPuestoDeTrabajo(PuestoDeTrabajoModel.toEntity(usuarioModel.getPuestoDeTrabajoModel()));
-        usuarioEntity.setEsAdmin(usuarioModel.getEsAdmin());
-        return UsuarioModel.fromEntity(usuarioRepository.save(usuarioEntity));
+        if (!usuarioRepository.existsByNickUsuario(usuarioModel.getNickUsuario())) {
+            usuarioEntity.setNickUsuario(usuarioModel.getNickUsuario());
+            usuarioEntity.setContrasena(usuarioModel.getContrasena());
+            usuarioEntity.setFechaHoraCreacion(fechaHoraCreacion);
+            usuarioEntity.setGenero(GeneroModel.toEntity(usuarioModel.getGeneroModel()));
+            usuarioEntity.setNombre(usuarioModel.getNombre());
+            usuarioEntity.setPrimerApellido(usuarioModel.getPrimerApellido());
+            usuarioEntity.setSegundoApellido(usuarioModel.getSegundoApellido());
+            usuarioEntity.setFechaNacimiento(usuarioModel.getFechaNacimiento());
+            usuarioEntity.setHoraDesayuno(usuarioModel.getHoraDesayuno());
+            usuarioEntity.setPuestoDeTrabajo(PuestoDeTrabajoModel.toEntity(usuarioModel.getPuestoDeTrabajoModel()));
+            usuarioEntity.setEsAdmin(usuarioModel.getEsAdmin());
+            return UsuarioModel.fromEntity(usuarioRepository.save(usuarioEntity));
+        } else {
+            return null;
+        }
+
     }
+
+    /*
+     * Método crearUsuario sin control sobre nickUsuario
+     * 
+     * @Override
+     * public UsuarioModel crearUsuario(UsuarioModel usuarioModel) {
+     * UsuarioEntity usuarioEntity = new UsuarioEntity();
+     * LocalDateTime fechaHoraCreacion = LocalDateTime.now();
+     * 
+     * usuarioEntity.setNickUsuario(usuarioModel.getNickUsuario());
+     * usuarioEntity.setContrasena(usuarioModel.getContrasena());
+     * usuarioEntity.setFechaHoraCreacion(fechaHoraCreacion);
+     * usuarioEntity.setGenero(GeneroModel.toEntity(usuarioModel.getGeneroModel()));
+     * usuarioEntity.setNombre(usuarioModel.getNombre());
+     * usuarioEntity.setPrimerApellido(usuarioModel.getPrimerApellido());
+     * usuarioEntity.setSegundoApellido(usuarioModel.getSegundoApellido());
+     * usuarioEntity.setFechaNacimiento(usuarioModel.getFechaNacimiento());
+     * usuarioEntity.setHoraDesayuno(usuarioModel.getHoraDesayuno());
+     * usuarioEntity.setPuestoDeTrabajo(PuestoDeTrabajoModel.toEntity(usuarioModel.
+     * getPuestoDeTrabajoModel()));
+     * usuarioEntity.setEsAdmin(usuarioModel.getEsAdmin());
+     * return UsuarioModel.fromEntity(usuarioRepository.save(usuarioEntity));
+     * }
+     * 
+     */
 
 }
