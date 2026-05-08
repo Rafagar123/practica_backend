@@ -1,6 +1,5 @@
 package es.ediae.master.programacion.gestionusuario.controller;
 
-import es.ediae.master.programacion.gestionusuario.repository.UsuarioRepository;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
