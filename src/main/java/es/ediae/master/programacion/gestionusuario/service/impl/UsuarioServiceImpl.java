@@ -68,28 +68,36 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public UsuarioModel actualizarUsuario(Integer id, UsuarioModel usuario) {
+    public UsuarioModel actualizarUsuario(Integer id, UsuarioModel usuario, String nickUsuario,
+            String contrasena) {
 
-        UsuarioEntity usuarioAnterior = usuarioRepository.findById(id).orElse(null);
-        UsuarioEntity usuarioMismoNick = usuarioRepository.findByNickUsuario(usuario.getNickUsuario());
+        UsuarioEntity usuarioReq = usuarioRepository.findByNickUsuario(nickUsuario);
 
-        if (usuarioMismoNick == null || usuarioMismoNick.getId().equals(id)) {
-            usuarioAnterior.setNickUsuario(usuario.getNickUsuario());
-            usuarioAnterior.setContrasena(usuario.getContrasena());
-            usuarioAnterior.setFechaNacimiento(usuario.getFechaNacimiento());
-            usuarioAnterior.setGenero(GeneroModel.toEntity(usuario.getGeneroModel()));
-            usuarioAnterior.setNombre(usuario.getNombre());
-            usuarioAnterior.setPrimerApellido(usuario.getPrimerApellido());
-            usuarioAnterior.setSegundoApellido(usuario.getSegundoApellido());
-            usuarioAnterior.setFechaNacimiento(usuario.getFechaNacimiento());
-            usuarioAnterior.setHoraDesayuno(usuario.getHoraDesayuno());
-            usuarioAnterior.setPuestoDeTrabajo(PuestoDeTrabajoModel.toEntity(usuario.getPuestoDeTrabajoModel()));
-            usuarioAnterior.setEsAdmin(usuario.getEsAdmin());
+        if (usuarioReq != null && usuarioReq.getContrasena().equals(contrasena)) {
 
-            return UsuarioModel.fromEntity(usuarioRepository.save(usuarioAnterior));
+            UsuarioEntity usuarioAnterior = usuarioRepository.findById(id).orElse(null);
+            UsuarioEntity usuarioMismoNick = usuarioRepository.findByNickUsuario(usuario.getNickUsuario());
+            if (usuarioMismoNick == null || usuarioMismoNick.getId().equals(id)) {
+                usuarioAnterior.setNickUsuario(usuario.getNickUsuario());
+                usuarioAnterior.setContrasena(usuario.getContrasena());
+                usuarioAnterior.setFechaNacimiento(usuario.getFechaNacimiento());
+                usuarioAnterior.setGenero(GeneroModel.toEntity(usuario.getGeneroModel()));
+                usuarioAnterior.setNombre(usuario.getNombre());
+                usuarioAnterior.setPrimerApellido(usuario.getPrimerApellido());
+                usuarioAnterior.setSegundoApellido(usuario.getSegundoApellido());
+                usuarioAnterior.setFechaNacimiento(usuario.getFechaNacimiento());
+                usuarioAnterior.setHoraDesayuno(usuario.getHoraDesayuno());
+                usuarioAnterior.setPuestoDeTrabajo(PuestoDeTrabajoModel.toEntity(usuario.getPuestoDeTrabajoModel()));
+                usuarioAnterior.setEsAdmin(usuario.getEsAdmin());
+
+                return UsuarioModel.fromEntity(usuarioRepository.save(usuarioAnterior));
+            } else {
+                return null;
+            }
         } else {
             return null;
         }
+
     }
 
     /*
@@ -119,23 +127,32 @@ public class UsuarioServiceImpl implements IUsuarioService {
      */
 
     @Override
-    public UsuarioModel crearUsuario(UsuarioModel usuarioModel) {
-        UsuarioEntity usuarioEntity = new UsuarioEntity();
-        LocalDateTime fechaHoraCreacion = LocalDateTime.now();
+    public UsuarioModel crearUsuario(UsuarioModel usuarioModel, String nickUsuario,
+            String contrasena) {
 
-        if (usuarioRepository.findByNickUsuario(usuarioModel.getNickUsuario()) == null) {
-            usuarioEntity.setNickUsuario(usuarioModel.getNickUsuario());
-            usuarioEntity.setContrasena(usuarioModel.getContrasena());
-            usuarioEntity.setFechaHoraCreacion(fechaHoraCreacion);
-            usuarioEntity.setGenero(GeneroModel.toEntity(usuarioModel.getGeneroModel()));
-            usuarioEntity.setNombre(usuarioModel.getNombre());
-            usuarioEntity.setPrimerApellido(usuarioModel.getPrimerApellido());
-            usuarioEntity.setSegundoApellido(usuarioModel.getSegundoApellido());
-            usuarioEntity.setFechaNacimiento(usuarioModel.getFechaNacimiento());
-            usuarioEntity.setHoraDesayuno(usuarioModel.getHoraDesayuno());
-            usuarioEntity.setPuestoDeTrabajo(PuestoDeTrabajoModel.toEntity(usuarioModel.getPuestoDeTrabajoModel()));
-            usuarioEntity.setEsAdmin(usuarioModel.getEsAdmin());
-            return UsuarioModel.fromEntity(usuarioRepository.save(usuarioEntity));
+        UsuarioEntity usuarioReq = usuarioRepository.findByNickUsuario(nickUsuario);
+
+        if (usuarioReq != null && usuarioReq.getContrasena().equals(contrasena)) {
+
+            UsuarioEntity usuarioEntity = new UsuarioEntity();
+            LocalDateTime fechaHoraCreacion = LocalDateTime.now();
+
+            if (usuarioRepository.findByNickUsuario(usuarioModel.getNickUsuario()) == null) {
+                usuarioEntity.setNickUsuario(usuarioModel.getNickUsuario());
+                usuarioEntity.setContrasena(usuarioModel.getContrasena());
+                usuarioEntity.setFechaHoraCreacion(fechaHoraCreacion);
+                usuarioEntity.setGenero(GeneroModel.toEntity(usuarioModel.getGeneroModel()));
+                usuarioEntity.setNombre(usuarioModel.getNombre());
+                usuarioEntity.setPrimerApellido(usuarioModel.getPrimerApellido());
+                usuarioEntity.setSegundoApellido(usuarioModel.getSegundoApellido());
+                usuarioEntity.setFechaNacimiento(usuarioModel.getFechaNacimiento());
+                usuarioEntity.setHoraDesayuno(usuarioModel.getHoraDesayuno());
+                usuarioEntity.setPuestoDeTrabajo(PuestoDeTrabajoModel.toEntity(usuarioModel.getPuestoDeTrabajoModel()));
+                usuarioEntity.setEsAdmin(usuarioModel.getEsAdmin());
+                return UsuarioModel.fromEntity(usuarioRepository.save(usuarioEntity));
+            } else {
+                return null;
+            }
         } else {
             return null;
         }

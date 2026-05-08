@@ -11,8 +11,9 @@ public interface IUsuarioService {
 
     boolean eliminarUsuario(Integer id, String nickUsuario, String contrasena);
 
-    UsuarioModel actualizarUsuario(Integer id, UsuarioModel usuario);
+    UsuarioModel actualizarUsuario(Integer id, UsuarioModel usuario, String nickUsuario, String contrasena);
 
-    UsuarioModel crearUsuario(UsuarioModel usuario);
-    
+    UsuarioModel crearUsuario(UsuarioModel usuario, String nickUsuario,
+            String contrasena);
+
 }

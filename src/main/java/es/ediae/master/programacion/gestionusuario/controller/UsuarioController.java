@@ -38,13 +38,18 @@ public class UsuarioController {
     }
 
     @PutMapping("/usuario/{id}")
-    public UsuarioDTO actualizarUsuario(@PathVariable Integer id, @RequestBody UsuarioDTO usuarioDTO) {
-        return UsuarioDTO.fromModel(usuarioServiceImpl.actualizarUsuario(id, UsuarioModel.fromDTO(usuarioDTO)));
+    public UsuarioDTO actualizarUsuario(@PathVariable Integer id, @RequestBody UsuarioDTO usuarioDTO,
+            @RequestParam String nickUsuario,
+            @RequestParam String contrasena) {
+        return UsuarioDTO.fromModel(
+                usuarioServiceImpl.actualizarUsuario(id, UsuarioModel.fromDTO(usuarioDTO), nickUsuario, contrasena));
     }
 
     @PostMapping("usuario")
-    public UsuarioDTO crearUsuario(@RequestBody UsuarioPostDTO usuarioPostDTO) {
-        return UsuarioDTO.fromModel(usuarioServiceImpl.crearUsuario(UsuarioModel.fromPostDTO(usuarioPostDTO)));
+    public UsuarioDTO crearUsuario(@RequestBody UsuarioPostDTO usuarioPostDTO, @RequestParam String nickUsuario,
+            @RequestParam String contrasena) {
+        return UsuarioDTO.fromModel(
+                usuarioServiceImpl.crearUsuario(UsuarioModel.fromPostDTO(usuarioPostDTO), nickUsuario, contrasena));
     }
 
 }
