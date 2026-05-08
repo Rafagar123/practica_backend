@@ -10,12 +10,6 @@ import es.ediae.master.programacion.gestionusuario.controller.PostDTO.UsuarioPos
 import es.ediae.master.programacion.gestionusuario.service.impl.UsuarioServiceImpl;
 import es.ediae.master.programacion.gestionusuario.service.models.UsuarioModel;
 
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
-
 @RestController
 @RequestMapping("api/v1/usuarios")
 public class UsuarioController {
@@ -24,20 +18,23 @@ public class UsuarioController {
     private UsuarioServiceImpl usuarioServiceImpl;
 
     @GetMapping("/usuarios")
-    public List<UsuarioDTO> obtenerTodosUsuarios() {
-        return usuarioServiceImpl.obtenerTodosUsuarios().stream()
+    public List<UsuarioDTO> obtenerTodosUsuarios(@RequestParam String nickUsuario,
+            @RequestParam String contrasena) {
+        return usuarioServiceImpl.obtenerTodosUsuarios(nickUsuario, contrasena).stream()
                 .map(UsuarioDTO::fromModel)
                 .toList();
     }
 
     @GetMapping("/usuario/{id}")
-    public UsuarioDTO usuarioPorId(@PathVariable Integer id) {
-        return UsuarioDTO.fromModel(usuarioServiceImpl.usuarioPorId(id));
+    public UsuarioDTO usuarioPorId(@PathVariable Integer id, @RequestParam String nickUsuario,
+            @RequestParam String contrasena) {
+        return UsuarioDTO.fromModel(usuarioServiceImpl.usuarioPorId(id, nickUsuario, contrasena));
     }
 
     @DeleteMapping("/usuario/{id}")
-    public boolean borrarUsuario(@PathVariable Integer id) {
-        return usuarioServiceImpl.eliminarUsuario(id);
+    public boolean borrarUsuario(@PathVariable Integer id, @RequestParam String nickUsuario,
+            @RequestParam String contrasena) {
+        return usuarioServiceImpl.eliminarUsuario(id, nickUsuario, contrasena);
     }
 
     @PutMapping("/usuario/{id}")
@@ -49,6 +46,5 @@ public class UsuarioController {
     public UsuarioDTO crearUsuario(@RequestBody UsuarioPostDTO usuarioPostDTO) {
         return UsuarioDTO.fromModel(usuarioServiceImpl.crearUsuario(UsuarioModel.fromPostDTO(usuarioPostDTO)));
     }
-    
 
 }

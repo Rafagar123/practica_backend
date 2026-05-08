@@ -20,27 +20,51 @@ public class UsuarioServiceImpl implements IUsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public List<UsuarioModel> obtenerTodosUsuarios() {
-        return usuarioRepository.findAll().stream()
-                .map(UsuarioModel::fromEntity)
-                .toList();
+    public List<UsuarioModel> obtenerTodosUsuarios(String nickUsuario, String contrasena) {
+
+        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
+
+        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+            return usuarioRepository.findAll().stream()
+                    .map(UsuarioModel::fromEntity)
+                    .toList();
+        } else {
+            return null;
+        }
+
     }
 
     @Override
-    public UsuarioModel usuarioPorId(Integer id) {
-        return usuarioRepository.findById(id)
-                .map(UsuarioModel::fromEntity)
-                .orElse(null);
+    public UsuarioModel usuarioPorId(Integer id, String nickUsuario, String contrasena) {
+
+        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
+
+        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+            return usuarioRepository.findById(id)
+                    .map(UsuarioModel::fromEntity)
+                    .orElse(null);
+        } else {
+            return null;
+        }
+
     }
 
     @Override
-    public boolean eliminarUsuario(Integer id) {
-        if (usuarioRepository.existsById(id)) {
-            usuarioRepository.deleteById(id);
-            return true;
+    public boolean eliminarUsuario(Integer id, String nickUsuario, String contrasena) {
+
+        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
+
+        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+            if (usuarioRepository.existsById(id)) {
+                usuarioRepository.deleteById(id);
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
+
     }
 
     @Override
