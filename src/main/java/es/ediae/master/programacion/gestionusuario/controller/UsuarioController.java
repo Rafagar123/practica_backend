@@ -17,6 +17,11 @@ public class UsuarioController {
     @Autowired
     private UsuarioServiceImpl usuarioServiceImpl;
 
+    @GetMapping("/usuario/login")
+    public boolean iniciarSesion(String nickUsuario, String contrasena) {
+        return usuarioServiceImpl.iniciarSesion(nickUsuario, contrasena);
+    }
+
     @GetMapping("/usuarios")
     public List<UsuarioDTO> obtenerTodosUsuarios(@RequestParam String nickUsuario,
             @RequestParam String contrasena) {
@@ -45,7 +50,7 @@ public class UsuarioController {
                 usuarioServiceImpl.actualizarUsuario(id, UsuarioModel.fromDTO(usuarioDTO), nickUsuario, contrasena));
     }
 
-    @PostMapping("usuario")
+    @PostMapping("/usuario")
     public UsuarioDTO crearUsuario(@RequestBody UsuarioPostDTO usuarioPostDTO, @RequestParam String nickUsuario,
             @RequestParam String contrasena) {
         return UsuarioDTO.fromModel(

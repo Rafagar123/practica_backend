@@ -20,6 +20,17 @@ public class UsuarioServiceImpl implements IUsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Override
+    public boolean iniciarSesion(String nickUsuario, String contrasena) {
+        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
+
+        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public List<UsuarioModel> obtenerTodosUsuarios(String nickUsuario, String contrasena) {
 
         UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
