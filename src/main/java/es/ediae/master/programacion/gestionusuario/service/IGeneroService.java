@@ -6,6 +6,6 @@ import es.ediae.master.programacion.gestionusuario.service.models.GeneroModel;
 
 public interface IGeneroService {
 
-    List<GeneroModel> obtenerTodosGeneros();
+    List<GeneroModel> obtenerTodosGeneros(String nickUsuario, String contrasena);
 
 }

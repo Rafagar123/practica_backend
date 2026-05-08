@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.ediae.master.programacion.gestionusuario.controller.DTO.PuestoDeTrabajoDTO;
@@ -18,8 +19,9 @@ public class PuestoDeTrabajoController {
     private PuestoDeTrabajoServiceImpl puestoDeTrabajoServiceImpl;
 
     @GetMapping("/puestos")
-    public List<PuestoDeTrabajoDTO> obtenerTodosPuestos() {
-        return puestoDeTrabajoServiceImpl.obtenerTodosPuestos().stream()
+    public List<PuestoDeTrabajoDTO> obtenerTodosPuestos(@RequestParam String nickUsuario,
+            @RequestParam String contrasena) {
+        return puestoDeTrabajoServiceImpl.obtenerTodosPuestos(nickUsuario, contrasena).stream()
                 .map(PuestoDeTrabajoDTO::fromModel)
                 .toList();
     }
