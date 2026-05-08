@@ -6,6 +6,6 @@ import es.ediae.master.programacion.gestionusuario.service.models.PuestoDeTrabaj
 
 public interface IPuestoDeTrabajo {
 
-    List<PuestoDeTrabajoModel> obtenerTodosPuestos();
+    List<PuestoDeTrabajoModel> obtenerTodosPuestos(String nickUsuario, String contrasena);
 
 }

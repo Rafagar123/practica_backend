@@ -20,52 +20,84 @@ public class UsuarioServiceImpl implements IUsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public List<UsuarioModel> obtenerTodosUsuarios() {
-        return usuarioRepository.findAll().stream()
-                .map(UsuarioModel::fromEntity)
-                .toList();
-    }
+    public List<UsuarioModel> obtenerTodosUsuarios(String nickUsuario, String contrasena) {
 
-    @Override
-    public UsuarioModel usuarioPorId(Integer id) {
-        return usuarioRepository.findById(id)
-                .map(UsuarioModel::fromEntity)
-                .orElse(null);
-    }
+        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
 
-    @Override
-    public boolean eliminarUsuario(Integer id) {
-        if (usuarioRepository.existsById(id)) {
-            usuarioRepository.deleteById(id);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public UsuarioModel actualizarUsuario(Integer id, UsuarioModel usuario) {
-
-        UsuarioEntity usuarioAnterior = usuarioRepository.findById(id).orElse(null);
-        UsuarioEntity usuarioMismoNick = usuarioRepository.findByNickUsuario(usuario.getNickUsuario());
-
-        if (usuarioMismoNick == null || usuarioMismoNick.getId().equals(id)) {
-            usuarioAnterior.setNickUsuario(usuario.getNickUsuario());
-            usuarioAnterior.setContrasena(usuario.getContrasena());
-            usuarioAnterior.setFechaNacimiento(usuario.getFechaNacimiento());
-            usuarioAnterior.setGenero(GeneroModel.toEntity(usuario.getGeneroModel()));
-            usuarioAnterior.setNombre(usuario.getNombre());
-            usuarioAnterior.setPrimerApellido(usuario.getPrimerApellido());
-            usuarioAnterior.setSegundoApellido(usuario.getSegundoApellido());
-            usuarioAnterior.setFechaNacimiento(usuario.getFechaNacimiento());
-            usuarioAnterior.setHoraDesayuno(usuario.getHoraDesayuno());
-            usuarioAnterior.setPuestoDeTrabajo(PuestoDeTrabajoModel.toEntity(usuario.getPuestoDeTrabajoModel()));
-            usuarioAnterior.setEsAdmin(usuario.getEsAdmin());
-
-            return UsuarioModel.fromEntity(usuarioRepository.save(usuarioAnterior));
+        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+            return usuarioRepository.findAll().stream()
+                    .map(UsuarioModel::fromEntity)
+                    .toList();
         } else {
             return null;
         }
+
+    }
+
+    @Override
+    public UsuarioModel usuarioPorId(Integer id, String nickUsuario, String contrasena) {
+
+        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
+
+        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+            return usuarioRepository.findById(id)
+                    .map(UsuarioModel::fromEntity)
+                    .orElse(null);
+        } else {
+            return null;
+        }
+
+    }
+
+    @Override
+    public boolean eliminarUsuario(Integer id, String nickUsuario, String contrasena) {
+
+        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
+
+        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+            if (usuarioRepository.existsById(id)) {
+                usuarioRepository.deleteById(id);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+    }
+
+    @Override
+    public UsuarioModel actualizarUsuario(Integer id, UsuarioModel usuario, String nickUsuario,
+            String contrasena) {
+
+        UsuarioEntity usuarioReq = usuarioRepository.findByNickUsuario(nickUsuario);
+
+        if (usuarioReq != null && usuarioReq.getContrasena().equals(contrasena)) {
+
+            UsuarioEntity usuarioAnterior = usuarioRepository.findById(id).orElse(null);
+            UsuarioEntity usuarioMismoNick = usuarioRepository.findByNickUsuario(usuario.getNickUsuario());
+            if (usuarioMismoNick == null || usuarioMismoNick.getId().equals(id)) {
+                usuarioAnterior.setNickUsuario(usuario.getNickUsuario());
+                usuarioAnterior.setContrasena(usuario.getContrasena());
+                usuarioAnterior.setFechaNacimiento(usuario.getFechaNacimiento());
+                usuarioAnterior.setGenero(GeneroModel.toEntity(usuario.getGeneroModel()));
+                usuarioAnterior.setNombre(usuario.getNombre());
+                usuarioAnterior.setPrimerApellido(usuario.getPrimerApellido());
+                usuarioAnterior.setSegundoApellido(usuario.getSegundoApellido());
+                usuarioAnterior.setFechaNacimiento(usuario.getFechaNacimiento());
+                usuarioAnterior.setHoraDesayuno(usuario.getHoraDesayuno());
+                usuarioAnterior.setPuestoDeTrabajo(PuestoDeTrabajoModel.toEntity(usuario.getPuestoDeTrabajoModel()));
+                usuarioAnterior.setEsAdmin(usuario.getEsAdmin());
+
+                return UsuarioModel.fromEntity(usuarioRepository.save(usuarioAnterior));
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+
     }
 
     /*
@@ -95,23 +127,32 @@ public class UsuarioServiceImpl implements IUsuarioService {
      */
 
     @Override
-    public UsuarioModel crearUsuario(UsuarioModel usuarioModel) {
-        UsuarioEntity usuarioEntity = new UsuarioEntity();
-        LocalDateTime fechaHoraCreacion = LocalDateTime.now();
+    public UsuarioModel crearUsuario(UsuarioModel usuarioModel, String nickUsuario,
+            String contrasena) {
 
-        if (usuarioRepository.findByNickUsuario(usuarioModel.getNickUsuario()) == null) {
-            usuarioEntity.setNickUsuario(usuarioModel.getNickUsuario());
-            usuarioEntity.setContrasena(usuarioModel.getContrasena());
-            usuarioEntity.setFechaHoraCreacion(fechaHoraCreacion);
-            usuarioEntity.setGenero(GeneroModel.toEntity(usuarioModel.getGeneroModel()));
-            usuarioEntity.setNombre(usuarioModel.getNombre());
-            usuarioEntity.setPrimerApellido(usuarioModel.getPrimerApellido());
-            usuarioEntity.setSegundoApellido(usuarioModel.getSegundoApellido());
-            usuarioEntity.setFechaNacimiento(usuarioModel.getFechaNacimiento());
-            usuarioEntity.setHoraDesayuno(usuarioModel.getHoraDesayuno());
-            usuarioEntity.setPuestoDeTrabajo(PuestoDeTrabajoModel.toEntity(usuarioModel.getPuestoDeTrabajoModel()));
-            usuarioEntity.setEsAdmin(usuarioModel.getEsAdmin());
-            return UsuarioModel.fromEntity(usuarioRepository.save(usuarioEntity));
+        UsuarioEntity usuarioReq = usuarioRepository.findByNickUsuario(nickUsuario);
+
+        if (usuarioReq != null && usuarioReq.getContrasena().equals(contrasena)) {
+
+            UsuarioEntity usuarioEntity = new UsuarioEntity();
+            LocalDateTime fechaHoraCreacion = LocalDateTime.now();
+
+            if (usuarioRepository.findByNickUsuario(usuarioModel.getNickUsuario()) == null) {
+                usuarioEntity.setNickUsuario(usuarioModel.getNickUsuario());
+                usuarioEntity.setContrasena(usuarioModel.getContrasena());
+                usuarioEntity.setFechaHoraCreacion(fechaHoraCreacion);
+                usuarioEntity.setGenero(GeneroModel.toEntity(usuarioModel.getGeneroModel()));
+                usuarioEntity.setNombre(usuarioModel.getNombre());
+                usuarioEntity.setPrimerApellido(usuarioModel.getPrimerApellido());
+                usuarioEntity.setSegundoApellido(usuarioModel.getSegundoApellido());
+                usuarioEntity.setFechaNacimiento(usuarioModel.getFechaNacimiento());
+                usuarioEntity.setHoraDesayuno(usuarioModel.getHoraDesayuno());
+                usuarioEntity.setPuestoDeTrabajo(PuestoDeTrabajoModel.toEntity(usuarioModel.getPuestoDeTrabajoModel()));
+                usuarioEntity.setEsAdmin(usuarioModel.getEsAdmin());
+                return UsuarioModel.fromEntity(usuarioRepository.save(usuarioEntity));
+            } else {
+                return null;
+            }
         } else {
             return null;
         }
