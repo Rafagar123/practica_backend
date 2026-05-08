@@ -22,63 +22,112 @@ public class DireccionServiceImpl implements IDireccionService {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public List<DireccionModel> buscarPorUsuarioId(Integer usuarioId) {
-        return direccionRepository.buscarPorUsuarioId(usuarioId).stream()
-                .map(DireccionModel::fromEntity)
-                .toList();
+    public List<DireccionModel> buscarPorUsuarioId(Integer usuarioId, String nickUsuario, String contrasena) {
+
+        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
+
+        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+            return direccionRepository.buscarPorUsuarioId(usuarioId).stream()
+                    .map(DireccionModel::fromEntity)
+                    .toList();
+        } else {
+            return null;
+        }
+
     }
 
     @Override
-    public List<DireccionModel> obtenerTodasDirecciones() {
-        return direccionRepository.findAll().stream()
-                .map(DireccionModel::fromEntity)
-                .toList();
+    public List<DireccionModel> obtenerTodasDirecciones(String nickUsuario, String contrasena) {
+
+        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
+
+        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+            return direccionRepository.findAll().stream()
+                    .map(DireccionModel::fromEntity)
+                    .toList();
+        } else {
+            return null;
+        }
+
     }
 
     @Override
-    public DireccionModel direccionPorId(Integer id) {
-        return direccionRepository.findById(id)
-                .map(DireccionModel::fromEntity)
-                .orElse(null);
+    public DireccionModel direccionPorId(Integer id, String nickUsuario, String contrasena) {
+
+        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
+
+        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+            return direccionRepository.findById(id)
+                    .map(DireccionModel::fromEntity)
+                    .orElse(null);
+        } else {
+            return null;
+        }
+
     }
 
     @Override
-    public boolean eliminarDireccion(Integer id) {
-        if (direccionRepository.existsById(id)) {
-            direccionRepository.deleteById(id);
-            return true;
+    public boolean eliminarDireccion(Integer id, String nickUsuario, String contrasena) {
+
+        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
+
+        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+            if (direccionRepository.existsById(id)) {
+                direccionRepository.deleteById(id);
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
+
     }
 
     // Deberia actualizar tambien el usuario? Y de ser asi, lo hago con un objeto
     // usuario, o tiro de Id?
     @Override
-    public DireccionModel actualizarDireccion(Integer id, DireccionModel direccion) {
-        return direccionRepository.findById(id)
-                .map(existingDireccion -> {
-                    existingDireccion.setNombreCalle(direccion.getNombreCalle());
-                    existingDireccion.setNumeroCalle(direccion.getNumeroCalle());
-                    existingDireccion.setDireccionPrincipal(direccion.getDireccionPrincipal());
-                    return DireccionModel.fromEntity(direccionRepository.save(existingDireccion));
-                })
-                .orElse(null);
+    public DireccionModel actualizarDireccion(Integer id, DireccionModel direccion, String nickUsuario,
+            String contrasena) {
+
+        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
+
+        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+            return direccionRepository.findById(id)
+                    .map(existingDireccion -> {
+                        existingDireccion.setNombreCalle(direccion.getNombreCalle());
+                        existingDireccion.setNumeroCalle(direccion.getNumeroCalle());
+                        existingDireccion.setDireccionPrincipal(direccion.getDireccionPrincipal());
+                        return DireccionModel.fromEntity(direccionRepository.save(existingDireccion));
+                    })
+                    .orElse(null);
+        } else {
+            return null;
+        }
+
     }
 
     // Deberia meter el usuario por Id?
     @Override
-    public DireccionModel crearDireccion(Integer usuarioId, DireccionModel direccion) {
+    public DireccionModel crearDireccion(Integer usuarioId, DireccionModel direccion, String nickUsuario,
+            String contrasena) {
 
-        UsuarioEntity usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        UsuarioEntity usuarioReq = usuarioRepository.findByNickUsuario(nickUsuario);
 
-        DireccionEntity direccionEntity = new DireccionEntity();
-        direccionEntity.setNombreCalle(direccion.getNombreCalle());
-        direccionEntity.setNumeroCalle(direccion.getNumeroCalle());
-        direccionEntity.setDireccionPrincipal(direccion.getDireccionPrincipal());
-        direccionEntity.setUsuario(usuario);
+        if (usuarioReq != null && usuarioReq.getContrasena().equals(contrasena)) {
+            UsuarioEntity usuario = usuarioRepository.findById(usuarioId)
+                    .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        return DireccionModel.fromEntity(direccionRepository.save(direccionEntity));
+            DireccionEntity direccionEntity = new DireccionEntity();
+            direccionEntity.setNombreCalle(direccion.getNombreCalle());
+            direccionEntity.setNumeroCalle(direccion.getNumeroCalle());
+            direccionEntity.setDireccionPrincipal(direccion.getDireccionPrincipal());
+            direccionEntity.setUsuario(usuario);
+
+            return DireccionModel.fromEntity(direccionRepository.save(direccionEntity));
+        } else {
+            return null;
+        }
+
     }
 }

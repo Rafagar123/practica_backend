@@ -11,7 +11,6 @@ import es.ediae.master.programacion.gestionusuario.service.models.DireccionModel
 
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("api/v1/direcciones")
 public class DireccionController {
@@ -19,36 +18,48 @@ public class DireccionController {
     private DireccionServiceImpl direccionServiceImpl;
 
     @GetMapping("/direc-por-usuario/{usuarioId}")
-    public List<DireccionDTO> buscarPorUsuarioId(@PathVariable Integer usuarioId) {
-        return direccionServiceImpl.buscarPorUsuarioId(usuarioId).stream()
-                .map(DireccionDTO :: fromModel)
+    public List<DireccionDTO> buscarPorUsuarioId(@PathVariable Integer usuarioId, @RequestParam String nickUsuario,
+            @RequestParam String contrasena) {
+        return direccionServiceImpl.buscarPorUsuarioId(usuarioId, nickUsuario, contrasena).stream()
+                .map(DireccionDTO::fromModel)
                 .toList();
     }
 
     @GetMapping("/direcciones")
-    public List<DireccionDTO> obtenerTodasDirecciones() {
-        return direccionServiceImpl.obtenerTodasDirecciones().stream()
-                .map(DireccionDTO :: fromModel)
+    public List<DireccionDTO> obtenerTodasDirecciones(@RequestParam String nickUsuario,
+            @RequestParam String contrasena) {
+        return direccionServiceImpl.obtenerTodasDirecciones(nickUsuario, contrasena).stream()
+                .map(DireccionDTO::fromModel)
                 .toList();
     }
 
     @GetMapping("/direccion/{id}")
-    public DireccionDTO buscarPorId(@PathVariable Integer id) {
-        return DireccionDTO.fromModel(direccionServiceImpl.direccionPorId(id));
+    public DireccionDTO buscarPorId(@PathVariable Integer id, @RequestParam String nickUsuario,
+            @RequestParam String contrasena) {
+        return DireccionDTO.fromModel(direccionServiceImpl.direccionPorId(id, nickUsuario, contrasena));
     }
 
     @PutMapping("/direccion/{id}")
-    public DireccionDTO actualizarDireccion(@PathVariable Integer id, @RequestBody DireccionDTO direccionDTO) {
-        return DireccionDTO.fromModel(direccionServiceImpl.actualizarDireccion(id, DireccionModel.fromDTO(direccionDTO)));
+    public DireccionDTO actualizarDireccion(@PathVariable Integer id, @RequestBody DireccionDTO direccionDTO,
+            @RequestParam String nickUsuario,
+            @RequestParam String contrasena) {
+        return DireccionDTO
+                .fromModel(direccionServiceImpl.actualizarDireccion(id, DireccionModel.fromDTO(direccionDTO),
+                        nickUsuario, contrasena));
     }
 
     @PostMapping("/direccion/{userId}")
-    public DireccionDTO crearDireccion(@PathVariable Integer userId, @RequestBody DireccionPostDTO direccionPostDTO){
-        return DireccionDTO.fromModel(direccionServiceImpl.crearDireccion(userId, DireccionModel.fromPostDTO(direccionPostDTO)));
+    public DireccionDTO crearDireccion(@PathVariable Integer userId, @RequestBody DireccionPostDTO direccionPostDTO,
+            @RequestParam String nickUsuario,
+            @RequestParam String contrasena) {
+        return DireccionDTO
+                .fromModel(direccionServiceImpl.crearDireccion(userId, DireccionModel.fromPostDTO(direccionPostDTO),
+                        nickUsuario, contrasena));
     }
 
     @DeleteMapping("/direccion/{id}")
-    public boolean eliminarDireccion(@PathVariable Integer id) {
-        return direccionServiceImpl.eliminarDireccion(id);
+    public boolean eliminarDireccion(@PathVariable Integer id, @RequestParam String nickUsuario,
+            @RequestParam String contrasena) {
+        return direccionServiceImpl.eliminarDireccion(id, nickUsuario, contrasena);
     }
 }
