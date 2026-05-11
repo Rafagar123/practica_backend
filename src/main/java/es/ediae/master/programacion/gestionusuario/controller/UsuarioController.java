@@ -22,7 +22,7 @@ public class UsuarioController {
     @Autowired
     private UsuarioServiceImpl usuarioServiceImpl;
 
-    @GetMapping("/usuario/login")
+    @PostMapping("/usuario/login")
     public boolean iniciarSesion(@RequestParam String nickUsuario, @RequestParam String contrasena) {
         return usuarioServiceImpl.iniciarSesion(nickUsuario, contrasena);
     }
