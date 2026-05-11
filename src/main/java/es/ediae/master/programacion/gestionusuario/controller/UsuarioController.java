@@ -11,6 +11,11 @@ import es.ediae.master.programacion.gestionusuario.service.impl.UsuarioServiceIm
 import es.ediae.master.programacion.gestionusuario.service.models.UsuarioModel;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET,
+        RequestMethod.POST,
+        RequestMethod.PUT,
+        RequestMethod.DELETE,
+        RequestMethod.OPTIONS })
 @RequestMapping("api/v1/usuarios")
 public class UsuarioController {
 
@@ -18,7 +23,7 @@ public class UsuarioController {
     private UsuarioServiceImpl usuarioServiceImpl;
 
     @GetMapping("/usuario/login")
-    public boolean iniciarSesion(String nickUsuario, String contrasena) {
+    public boolean iniciarSesion(@RequestParam String nickUsuario, @RequestParam String contrasena) {
         return usuarioServiceImpl.iniciarSesion(nickUsuario, contrasena);
     }
 

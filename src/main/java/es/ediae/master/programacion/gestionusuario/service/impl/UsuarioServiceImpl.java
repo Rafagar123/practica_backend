@@ -1,6 +1,7 @@
 package es.ediae.master.programacion.gestionusuario.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.time.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +22,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     public boolean iniciarSesion(String nickUsuario, String contrasena) {
-        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
-
-        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
-            return true;
-        } else {
-            return false;
-        }
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByNickUsuarioAndContrasena(nickUsuario, contrasena);
+        return usuario.isPresent();
     }
 
     @Override
     public List<UsuarioModel> obtenerTodosUsuarios(String nickUsuario, String contrasena) {
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByNickUsuarioAndContrasena(nickUsuario, contrasena);
 
-        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
-
-        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+        if (usuario.isPresent() == true) {
             return usuarioRepository.findAll().stream()
                     .map(UsuarioModel::fromEntity)
                     .toList();
@@ -47,10 +42,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     public UsuarioModel usuarioPorId(Integer id, String nickUsuario, String contrasena) {
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByNickUsuarioAndContrasena(nickUsuario, contrasena);
 
-        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
-
-        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+        if (usuario.isPresent() == true) {
             return usuarioRepository.findById(id)
                     .map(UsuarioModel::fromEntity)
                     .orElse(null);
@@ -62,10 +56,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     public boolean eliminarUsuario(Integer id, String nickUsuario, String contrasena) {
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByNickUsuarioAndContrasena(nickUsuario, contrasena);
 
-        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
-
-        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+        if (usuario.isPresent() == true) {
             if (usuarioRepository.existsById(id)) {
                 usuarioRepository.deleteById(id);
                 return true;
@@ -81,10 +74,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public UsuarioModel actualizarUsuario(Integer id, UsuarioModel usuario, String nickUsuario,
             String contrasena) {
+        Optional<UsuarioEntity> usuarioOpt = usuarioRepository.findByNickUsuarioAndContrasena(nickUsuario, contrasena);
 
-        UsuarioEntity usuarioReq = usuarioRepository.findByNickUsuario(nickUsuario);
-
-        if (usuarioReq != null && usuarioReq.getContrasena().equals(contrasena)) {
+        if (usuarioOpt.isPresent() == true) {
 
             UsuarioEntity usuarioAnterior = usuarioRepository.findById(id).orElse(null);
             UsuarioEntity usuarioMismoNick = usuarioRepository.findByNickUsuario(usuario.getNickUsuario());
@@ -141,9 +133,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public UsuarioModel crearUsuario(UsuarioModel usuarioModel, String nickUsuario,
             String contrasena) {
 
-        UsuarioEntity usuarioReq = usuarioRepository.findByNickUsuario(nickUsuario);
+        Optional<UsuarioEntity> usuarioOpt = usuarioRepository.findByNickUsuarioAndContrasena(nickUsuario, contrasena);
 
-        if (usuarioReq != null && usuarioReq.getContrasena().equals(contrasena)) {
+        if (usuarioOpt.isPresent() == true) {
 
             UsuarioEntity usuarioEntity = new UsuarioEntity();
             LocalDateTime fechaHoraCreacion = LocalDateTime.now();

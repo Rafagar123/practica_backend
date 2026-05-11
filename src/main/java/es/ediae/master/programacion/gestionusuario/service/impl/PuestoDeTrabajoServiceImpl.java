@@ -1,6 +1,7 @@
 package es.ediae.master.programacion.gestionusuario.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +24,9 @@ public class PuestoDeTrabajoServiceImpl implements IPuestoDeTrabajo {
     @Override
     public List<PuestoDeTrabajoModel> obtenerTodosPuestos(String nickUsuario, String contrasena) {
 
-        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByNickUsuarioAndContrasena(nickUsuario, contrasena);
 
-        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+        if (usuario.isPresent() == true) {
             return puestoDeTrabajoRepository.findAll().stream()
                     .map(PuestoDeTrabajoModel::fromEntity)
                     .toList();

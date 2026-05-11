@@ -1,6 +1,7 @@
 package es.ediae.master.programacion.gestionusuario.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,9 @@ public class DireccionServiceImpl implements IDireccionService {
     @Override
     public List<DireccionModel> buscarPorUsuarioId(Integer usuarioId, String nickUsuario, String contrasena) {
 
-        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByNickUsuarioAndContrasena(nickUsuario, contrasena);
 
-        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+        if (usuario.isPresent() == true) {
             return direccionRepository.buscarPorUsuarioId(usuarioId).stream()
                     .map(DireccionModel::fromEntity)
                     .toList();
@@ -39,9 +40,9 @@ public class DireccionServiceImpl implements IDireccionService {
     @Override
     public List<DireccionModel> obtenerTodasDirecciones(String nickUsuario, String contrasena) {
 
-        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByNickUsuarioAndContrasena(nickUsuario, contrasena);
 
-        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+        if (usuario.isPresent() == true) {
             return direccionRepository.findAll().stream()
                     .map(DireccionModel::fromEntity)
                     .toList();
@@ -54,9 +55,9 @@ public class DireccionServiceImpl implements IDireccionService {
     @Override
     public DireccionModel direccionPorId(Integer id, String nickUsuario, String contrasena) {
 
-        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByNickUsuarioAndContrasena(nickUsuario, contrasena);
 
-        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+        if (usuario.isPresent() == true) {
             return direccionRepository.findById(id)
                     .map(DireccionModel::fromEntity)
                     .orElse(null);
@@ -69,9 +70,9 @@ public class DireccionServiceImpl implements IDireccionService {
     @Override
     public boolean eliminarDireccion(Integer id, String nickUsuario, String contrasena) {
 
-        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByNickUsuarioAndContrasena(nickUsuario, contrasena);
 
-        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+        if (usuario.isPresent() == true) {
             if (direccionRepository.existsById(id)) {
                 direccionRepository.deleteById(id);
                 return true;
@@ -90,9 +91,9 @@ public class DireccionServiceImpl implements IDireccionService {
     public DireccionModel actualizarDireccion(Integer id, DireccionModel direccion, String nickUsuario,
             String contrasena) {
 
-        UsuarioEntity usuario = usuarioRepository.findByNickUsuario(nickUsuario);
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByNickUsuarioAndContrasena(nickUsuario, contrasena);
 
-        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+        if (usuario.isPresent() == true) {
             return direccionRepository.findById(id)
                     .map(existingDireccion -> {
                         existingDireccion.setNombreCalle(direccion.getNombreCalle());
@@ -112,9 +113,9 @@ public class DireccionServiceImpl implements IDireccionService {
     public DireccionModel crearDireccion(Integer usuarioId, DireccionModel direccion, String nickUsuario,
             String contrasena) {
 
-        UsuarioEntity usuarioReq = usuarioRepository.findByNickUsuario(nickUsuario);
+        Optional<UsuarioEntity> usuarioOpt = usuarioRepository.findByNickUsuarioAndContrasena(nickUsuario, contrasena);
 
-        if (usuarioReq != null && usuarioReq.getContrasena().equals(contrasena)) {
+        if (usuarioOpt.isPresent() == true) {
             UsuarioEntity usuario = usuarioRepository.findById(usuarioId)
                     .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
