@@ -12,54 +12,61 @@ import es.ediae.master.programacion.gestionusuario.service.models.DireccionModel
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET,
+                RequestMethod.POST,
+                RequestMethod.PUT,
+                RequestMethod.DELETE,
+                RequestMethod.OPTIONS })
 @RequestMapping("api/v1/direcciones")
 public class DireccionController {
-    @Autowired
-    private DireccionServiceImpl direccionServiceImpl;
+        @Autowired
+        private DireccionServiceImpl direccionServiceImpl;
 
-    @GetMapping("/direc-por-usuario/{usuarioId}")
-    public List<DireccionDTO> buscarPorUsuarioId(@PathVariable Integer usuarioId, @RequestParam String nickUsuario,
-            @RequestParam String contrasena) {
-        return direccionServiceImpl.buscarPorUsuarioId(usuarioId, nickUsuario, contrasena).stream()
-                .map(DireccionDTO::fromModel)
-                .toList();
-    }
+        @GetMapping("/direc-por-usuario/{usuarioId}")
+        public List<DireccionDTO> buscarPorUsuarioId(@PathVariable Integer usuarioId, @RequestParam String nickUsuario,
+                        @RequestParam String contrasena) {
+                return direccionServiceImpl.buscarPorUsuarioId(usuarioId, nickUsuario, contrasena).stream()
+                                .map(DireccionDTO::fromModel)
+                                .toList();
+        }
 
-    @GetMapping("/direcciones")
-    public List<DireccionDTO> obtenerTodasDirecciones(@RequestParam String nickUsuario,
-            @RequestParam String contrasena) {
-        return direccionServiceImpl.obtenerTodasDirecciones(nickUsuario, contrasena).stream()
-                .map(DireccionDTO::fromModel)
-                .toList();
-    }
+        @GetMapping("/direcciones")
+        public List<DireccionDTO> obtenerTodasDirecciones(@RequestParam String nickUsuario,
+                        @RequestParam String contrasena) {
+                return direccionServiceImpl.obtenerTodasDirecciones(nickUsuario, contrasena).stream()
+                                .map(DireccionDTO::fromModel)
+                                .toList();
+        }
 
-    @GetMapping("/direccion/{id}")
-    public DireccionDTO buscarPorId(@PathVariable Integer id, @RequestParam String nickUsuario,
-            @RequestParam String contrasena) {
-        return DireccionDTO.fromModel(direccionServiceImpl.direccionPorId(id, nickUsuario, contrasena));
-    }
+        @GetMapping("/direccion/{id}")
+        public DireccionDTO buscarPorId(@PathVariable Integer id, @RequestParam String nickUsuario,
+                        @RequestParam String contrasena) {
+                return DireccionDTO.fromModel(direccionServiceImpl.direccionPorId(id, nickUsuario, contrasena));
+        }
 
-    @PutMapping("/direccion/{id}")
-    public DireccionDTO actualizarDireccion(@PathVariable Integer id, @RequestBody DireccionDTO direccionDTO,
-            @RequestParam String nickUsuario,
-            @RequestParam String contrasena) {
-        return DireccionDTO
-                .fromModel(direccionServiceImpl.actualizarDireccion(id, DireccionModel.fromDTO(direccionDTO),
-                        nickUsuario, contrasena));
-    }
+        @PutMapping("/direccion/{id}")
+        public DireccionDTO actualizarDireccion(@PathVariable Integer id, @RequestBody DireccionDTO direccionDTO,
+                        @RequestParam String nickUsuario,
+                        @RequestParam String contrasena) {
+                return DireccionDTO
+                                .fromModel(direccionServiceImpl.actualizarDireccion(id,
+                                                DireccionModel.fromDTO(direccionDTO),
+                                                nickUsuario, contrasena));
+        }
 
-    @PostMapping("/direccion/{userId}")
-    public DireccionDTO crearDireccion(@PathVariable Integer userId, @RequestBody DireccionPostDTO direccionPostDTO,
-            @RequestParam String nickUsuario,
-            @RequestParam String contrasena) {
-        return DireccionDTO
-                .fromModel(direccionServiceImpl.crearDireccion(userId, DireccionModel.fromPostDTO(direccionPostDTO),
-                        nickUsuario, contrasena));
-    }
+        @PostMapping("/direccion/{userId}")
+        public DireccionDTO crearDireccion(@PathVariable Integer userId, @RequestBody DireccionPostDTO direccionPostDTO,
+                        @RequestParam String nickUsuario,
+                        @RequestParam String contrasena) {
+                return DireccionDTO
+                                .fromModel(direccionServiceImpl.crearDireccion(userId,
+                                                DireccionModel.fromPostDTO(direccionPostDTO),
+                                                nickUsuario, contrasena));
+        }
 
-    @DeleteMapping("/direccion/{id}")
-    public boolean eliminarDireccion(@PathVariable Integer id, @RequestParam String nickUsuario,
-            @RequestParam String contrasena) {
-        return direccionServiceImpl.eliminarDireccion(id, nickUsuario, contrasena);
-    }
+        @DeleteMapping("/direccion/{id}")
+        public boolean eliminarDireccion(@PathVariable Integer id, @RequestParam String nickUsuario,
+                        @RequestParam String contrasena) {
+                return direccionServiceImpl.eliminarDireccion(id, nickUsuario, contrasena);
+        }
 }
