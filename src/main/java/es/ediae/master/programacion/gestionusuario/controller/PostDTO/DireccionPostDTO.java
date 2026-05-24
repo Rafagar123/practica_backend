@@ -1,6 +1,5 @@
 package es.ediae.master.programacion.gestionusuario.controller.PostDTO;
 
-
 public class DireccionPostDTO {
 
     private String nombreCalle;

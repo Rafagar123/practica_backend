@@ -3,6 +3,7 @@ package es.ediae.master.programacion.gestionusuario.service.models;
 import es.ediae.master.programacion.gestionusuario.controller.DTO.GeneroDTO;
 import es.ediae.master.programacion.gestionusuario.controller.PostDTO.GeneroPostDTO;
 import es.ediae.master.programacion.gestionusuario.entity.GeneroEntity;
+
 public class GeneroModel {
 
     private Integer id;

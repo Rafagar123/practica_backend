@@ -33,6 +33,5 @@ public class GeneroServiceImpl implements IGeneroService {
         } else {
             return null;
         }
-
     }
 }

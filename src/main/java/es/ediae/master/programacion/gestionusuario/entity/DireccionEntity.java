@@ -75,6 +75,4 @@ public class DireccionEntity {
         this.direccionPrincipal = direccionPrincipal;
     }
 
-    
-
 }

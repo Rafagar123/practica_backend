@@ -11,6 +11,7 @@ import es.ediae.master.programacion.gestionusuario.entity.*;
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Integer> {
 
     Optional<UsuarioEntity> findByNickUsuarioAndContrasena(String nickUsuario, String contrasena);
+    
     UsuarioEntity findByNickUsuario(String nickUsuario);
 
 }

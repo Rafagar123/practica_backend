@@ -33,6 +33,5 @@ public class PuestoDeTrabajoServiceImpl implements IPuestoDeTrabajo {
         } else {
             return null;
         }
-
     }
 }

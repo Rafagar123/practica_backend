@@ -39,8 +39,6 @@ public class UsuarioEntity {
     @Column(name = "hora_desayuno", nullable = true)
     private LocalTime horaDesayuno;
 
-    // Nullable es true porque un usuario puede no tener un puesto de trabajo
-    // asignado
     @ManyToOne
     @JoinColumn(name = "puesto_de_trabajo_id", nullable = true)
     private PuestoDeTrabajoEntity puestoDeTrabajo;

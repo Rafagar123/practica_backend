@@ -3,7 +3,7 @@ package es.ediae.master.programacion.gestionusuario.controller.DTO;
 import es.ediae.master.programacion.gestionusuario.service.models.DireccionModel;
 
 public class DireccionDTO {
-    
+
     private Integer id;
 
     private String nombreCalle;

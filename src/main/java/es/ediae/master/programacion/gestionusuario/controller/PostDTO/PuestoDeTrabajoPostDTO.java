@@ -1,7 +1,7 @@
 package es.ediae.master.programacion.gestionusuario.controller.PostDTO;
 
 public class PuestoDeTrabajoPostDTO {
-    
+
     private String nombre;
 
     public PuestoDeTrabajoPostDTO(String nombre) {

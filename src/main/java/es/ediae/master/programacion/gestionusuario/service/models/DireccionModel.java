@@ -5,7 +5,7 @@ import es.ediae.master.programacion.gestionusuario.controller.PostDTO.DireccionP
 import es.ediae.master.programacion.gestionusuario.entity.DireccionEntity;
 
 public class DireccionModel {
-    
+
     private Integer id;
 
     private String nombreCalle;
@@ -82,7 +82,7 @@ public class DireccionModel {
                 direccionDTO.getId(),
                 direccionDTO.getNombreCalle(),
                 direccionDTO.getNumeroCalle(),
-               	direccionDTO.getUsuarioId(),
+                direccionDTO.getUsuarioId(),
                 direccionDTO.getDireccionPrincipal());
     }
 

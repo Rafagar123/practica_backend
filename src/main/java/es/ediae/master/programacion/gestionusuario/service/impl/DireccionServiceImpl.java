@@ -34,7 +34,6 @@ public class DireccionServiceImpl implements IDireccionService {
         } else {
             return null;
         }
-
     }
 
     @Override
@@ -49,7 +48,6 @@ public class DireccionServiceImpl implements IDireccionService {
         } else {
             return null;
         }
-
     }
 
     @Override
@@ -64,7 +62,6 @@ public class DireccionServiceImpl implements IDireccionService {
         } else {
             return null;
         }
-
     }
 
     @Override
@@ -82,7 +79,6 @@ public class DireccionServiceImpl implements IDireccionService {
         } else {
             return false;
         }
-
     }
 
     @Override
@@ -97,8 +93,6 @@ public class DireccionServiceImpl implements IDireccionService {
         }
     }
 
-    // Deberia actualizar tambien el usuario? Y de ser asi, lo hago con un objeto
-    // usuario, o tiro de Id?
     @Override
     public DireccionModel actualizarDireccion(Integer id, DireccionModel direccion, String nickUsuario,
             String contrasena) {
@@ -120,7 +114,6 @@ public class DireccionServiceImpl implements IDireccionService {
 
     }
 
-    // Deberia meter el usuario por Id?
     @Override
     public DireccionModel crearDireccion(Integer usuarioId, DireccionModel direccion, String nickUsuario,
             String contrasena) {
@@ -141,6 +134,6 @@ public class DireccionServiceImpl implements IDireccionService {
         } else {
             return null;
         }
-
     }
+
 }
