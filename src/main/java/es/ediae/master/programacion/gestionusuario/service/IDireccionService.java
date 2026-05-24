@@ -17,4 +17,6 @@ public interface IDireccionService {
     DireccionModel actualizarDireccion(Integer id, DireccionModel direccion, String nickUsuario, String contrasena);
 
     DireccionModel crearDireccion(Integer usuarioId, DireccionModel direccion, String nickUsuario, String contrasena);
+
+    boolean eliminarDireccionPorUsuarioId(Integer usuarioId);
 }

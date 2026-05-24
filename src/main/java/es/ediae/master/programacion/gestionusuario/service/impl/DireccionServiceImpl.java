@@ -85,6 +85,18 @@ public class DireccionServiceImpl implements IDireccionService {
 
     }
 
+    @Override
+    public boolean eliminarDireccionPorUsuarioId(Integer usuarioId) {
+        List<DireccionEntity> direcciones = direccionRepository.buscarPorUsuarioId(usuarioId);
+
+        if (direcciones.isEmpty()) {
+            return false;
+        } else {
+            direccionRepository.deleteAll(direcciones);
+            return true;
+        }
+    }
+
     // Deberia actualizar tambien el usuario? Y de ser asi, lo hago con un objeto
     // usuario, o tiro de Id?
     @Override

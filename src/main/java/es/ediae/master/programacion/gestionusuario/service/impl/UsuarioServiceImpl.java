@@ -20,6 +20,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired 
+    private DireccionServiceImpl direccionServiceImpl;
+
     @Override
     public boolean iniciarSesion(String nickUsuario, String contrasena) {
         Optional<UsuarioEntity> usuario = usuarioRepository.findByNickUsuarioAndContrasena(nickUsuario, contrasena);
@@ -60,6 +63,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
         if (usuario.isPresent() == true) {
             if (usuarioRepository.existsById(id)) {
+                direccionServiceImpl.eliminarDireccionPorUsuarioId(id);
                 usuarioRepository.deleteById(id);
                 return true;
             } else {
