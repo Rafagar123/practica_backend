@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.ediae.master.programacion.gestionusuario.entity.UsuarioEntity;
+import es.ediae.master.programacion.gestionusuario.exception.*;
 import es.ediae.master.programacion.gestionusuario.repository.UsuarioRepository;
 import es.ediae.master.programacion.gestionusuario.service.IUsuarioService;
 import es.ediae.master.programacion.gestionusuario.service.models.GeneroModel;
@@ -50,7 +51,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         if (usuario.isPresent() == true) {
             return usuarioRepository.findById(id)
                     .map(UsuarioModel::fromEntity)
-                    .orElse(null);
+                    .orElseThrow(() -> new UsuarioNoEncontradoException());
         } else {
             return null;
         }
@@ -67,7 +68,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 usuarioRepository.deleteById(id);
                 return true;
             } else {
-                return false;
+                throw new UsuarioNoEncontradoException();
             }
         } else {
             return false;
@@ -132,7 +133,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 usuarioEntity.setEsAdmin(usuarioModel.getEsAdmin());
                 return UsuarioModel.fromEntity(usuarioRepository.save(usuarioEntity));
             } else {
-                return null;
+                throw new UsuarioNickYaExistenteException();
             }
         } else {
             return null;

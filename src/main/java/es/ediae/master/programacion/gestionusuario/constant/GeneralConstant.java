@@ -29,6 +29,9 @@ public class GeneralConstant {
     public static final int GENERO_YA_EXISTE_ERROR_CODE = 9;
 
     public static final int PUESTO_DE_TRABAJO_YA_EXISTE_ERROR_CODE = 10;
+    
+    public static final int USUARIO_NO_ENCONTRADO_ERROR_CODE = 11;
+    
     public static final int NO_ENCONTRADO_ERROR_CODE = 404;
 
     public static final String GENERAL_ERROR_MESSAGE = "Error inesperado en el servidor";
@@ -41,7 +44,7 @@ public class GeneralConstant {
 
     public static final String IMAGEN_DE_USUARIO_NO_ENCONTRADO_ERROR_MESSAGE = "Imagen de Usuario no ha sido encontrado";
 
-    public static final String PUESTO_DE_TRABAJO_NO_ENCONTRADO_ERROR_MESSAGE = "El genero no ha sido encontrado";
+    public static final String PUESTO_DE_TRABAJO_NO_ENCONTRADO_ERROR_MESSAGE = "El puesto de trabajo no ha sido encontrado";
 
     public static final String USUARIO_NO_ENCONTRADO_ERROR_MESSAGE = "El usuario no ha sido encontrado";
 

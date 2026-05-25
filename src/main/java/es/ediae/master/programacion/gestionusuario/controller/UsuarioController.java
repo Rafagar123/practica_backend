@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import es.ediae.master.programacion.gestionusuario.controller.DTO.UsuarioDTO;
 import es.ediae.master.programacion.gestionusuario.controller.PostDTO.UsuarioPostDTO;
+import es.ediae.master.programacion.gestionusuario.exception.*;
 import es.ediae.master.programacion.gestionusuario.service.impl.UsuarioServiceImpl;
 import es.ediae.master.programacion.gestionusuario.service.models.UsuarioModel;
 
@@ -23,13 +24,18 @@ public class UsuarioController {
     private UsuarioServiceImpl usuarioServiceImpl;
 
     @PostMapping("/usuario/login")
-    public boolean iniciarSesion(@RequestParam String nickUsuario, @RequestParam String contrasena) {
-        return usuarioServiceImpl.iniciarSesion(nickUsuario, contrasena);
+    public boolean iniciarSesion(@RequestParam String nickUsuario, @RequestParam String contrasena)
+            throws GeneralException {
+        boolean credencialesValidas = usuarioServiceImpl.iniciarSesion(nickUsuario, contrasena);
+        if (!credencialesValidas) {
+            throw new UsuarioNoValidoException();
+        }
+        return true;
     }
 
     @GetMapping("/usuarios")
     public List<UsuarioDTO> obtenerTodosUsuarios(@RequestParam String nickUsuario,
-            @RequestParam String contrasena) {
+            @RequestParam String contrasena) throws GeneralException {
         return usuarioServiceImpl.obtenerTodosUsuarios(nickUsuario, contrasena).stream()
                 .map(UsuarioDTO::fromModel)
                 .toList();
@@ -37,27 +43,27 @@ public class UsuarioController {
 
     @GetMapping("/usuario/{id}")
     public UsuarioDTO usuarioPorId(@PathVariable Integer id, @RequestParam String nickUsuario,
-            @RequestParam String contrasena) {
+            @RequestParam String contrasena) throws GeneralException {
         return UsuarioDTO.fromModel(usuarioServiceImpl.usuarioPorId(id, nickUsuario, contrasena));
     }
 
     @DeleteMapping("/usuario/{id}")
     public boolean borrarUsuario(@PathVariable Integer id, @RequestParam String nickUsuario,
-            @RequestParam String contrasena) {
+            @RequestParam String contrasena) throws GeneralException {
         return usuarioServiceImpl.eliminarUsuario(id, nickUsuario, contrasena);
     }
 
     @PutMapping("/usuario/{id}")
     public UsuarioDTO actualizarUsuario(@PathVariable Integer id, @RequestBody UsuarioDTO usuarioDTO,
             @RequestParam String nickUsuario,
-            @RequestParam String contrasena) {
+            @RequestParam String contrasena) throws GeneralException {
         return UsuarioDTO.fromModel(
                 usuarioServiceImpl.actualizarUsuario(id, UsuarioModel.fromDTO(usuarioDTO), nickUsuario, contrasena));
     }
 
     @PostMapping("/usuario")
     public UsuarioDTO crearUsuario(@RequestBody UsuarioPostDTO usuarioPostDTO, @RequestParam String nickUsuario,
-            @RequestParam String contrasena) {
+            @RequestParam String contrasena) throws GeneralException {
         return UsuarioDTO.fromModel(
                 usuarioServiceImpl.crearUsuario(UsuarioModel.fromPostDTO(usuarioPostDTO), nickUsuario, contrasena));
     }
