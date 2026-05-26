@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import es.ediae.master.programacion.gestionusuario.entity.DireccionEntity;
 import es.ediae.master.programacion.gestionusuario.entity.UsuarioEntity;
+import es.ediae.master.programacion.gestionusuario.exception.UsuarioNoEncontradoException;
 import es.ediae.master.programacion.gestionusuario.repository.DireccionRepository;
 import es.ediae.master.programacion.gestionusuario.repository.UsuarioRepository;
 import es.ediae.master.programacion.gestionusuario.service.IDireccionService;
@@ -122,7 +123,7 @@ public class DireccionServiceImpl implements IDireccionService {
 
         if (usuarioOpt.isPresent() == true) {
             UsuarioEntity usuario = usuarioRepository.findById(usuarioId)
-                    .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                    .orElseThrow(() -> new UsuarioNoEncontradoException());
 
             DireccionEntity direccionEntity = new DireccionEntity();
             direccionEntity.setNombreCalle(direccion.getNombreCalle());
